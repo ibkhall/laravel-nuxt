@@ -5,7 +5,7 @@
 <div>
     <v-text-field placeholder="Search..." color="inherit" type="search"></v-text-field>
     <v-table>
-    <thead>
+    <thead class="elevation-5">
         <tr>
             <th class="bg-pink rounded-ts-lg">#</th>
             <th class="bg-pink">Nom</th>

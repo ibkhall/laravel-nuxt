@@ -10,6 +10,7 @@ const maleImg = new URL('../img/male.png', import.meta.url).href
 
 <template>
   <VApp>
+    <NuxtLoadingIndicator color="red" /> <!-- here -->
         <VMain>
     <v-navigation-drawer rounded="10" app v-model="drawer">
     <v-toolbar elevation="3" dense color="primary" class="rounded-ts-xl">
