@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import UserRepository from '@/repositories/UserRepository'
-
+import { Permission } from '../models/Permission';
+import { User } from '../models/User';
 definePageMeta({
   layout: "authenticated"
 });
 
-const users = await UserRepository.all()
+const permissions = await Permission.$query().get()
+const users = await User.$query().get()
 
-console.log(useRoute())
 </script>
 
 <template>
@@ -15,6 +15,7 @@ console.log(useRoute())
 <h5 class="text-h5">Tableau de bord</h5>
 <div>
   <TableComponent/>
+{{permissions}}
 {{users}}
 </div>
 

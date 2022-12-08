@@ -1,4 +1,4 @@
-import {Model} from "@tailflow/laravel-orion/lib/model";
+import {Model} from "@/models/Model";
 
 export class Permission extends Model {
 
