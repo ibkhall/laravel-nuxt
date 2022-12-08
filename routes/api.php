@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\Api\PermissionController;
+use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use Orion\Facades\Orion;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,4 +19,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+
+Route::group(['as' => 'api.'], function() {
+    Orion::resource('users', UserController::class);
+    Orion::resource('roles', RoleController::class);
+    Orion::resource('permissions', PermissionController::class)->only('index');
 });

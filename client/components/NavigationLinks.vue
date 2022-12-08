@@ -1,0 +1,39 @@
+<template>
+  <v-list active-color="pink" nav>
+        <template  v-for="item in links" :key="item.title"> 
+        <v-list-group v-if="item.children" fluid>
+            <template v-slot:activator="{ props }">
+                <v-list-item class="rounded-e-xl" rounded v-ripple v-bind="props" :prepend-icon="item.icon" :title="item.title" :value="item.title">
+                </v-list-item>
+            </template>
+            <template v-for="child in item.children">
+                <v-list-group v-if="child.children" class="ml-7" fluid>
+                <template v-slot:activator="{ props }">
+                    <v-list-item class="rounded-e-xl" rounded v-ripple v-bind="props" :title="child.title" :value="child.title">
+                        <template v-slot:prepend>
+                            <v-icon size="small" start :icon="child.icon"></v-icon>
+                        </template>
+                    </v-list-item>
+                </template>
+                
+                    <template v-for="el in child.children">
+                        <v-list-item :to="el.to" class="rounded-e-xl" rounded v-ripple :title="el.title">
+                        <template v-slot:prepend>
+                            <v-icon size="x-small" class="ml-7" start :icon="el.icon"></v-icon>
+                        </template>
+                    </v-list-item>
+                    </template>
+                
+                </v-list-group>
+                <v-list-item v-else :to="child.to"  rounded  v-ripple class="ml-7 rounded-e-xl" :title="child.title" :value="child.title">
+                    <template v-slot:prepend>
+                                <v-icon size="small" start :icon="child.icon"></v-icon>
+                    </template>
+                </v-list-item>
+            </template>
+
+        </v-list-group>
+        <v-list-item v-else class="rounded-e-xl" :to="item.to" :prepend-icon="item.icon" :title="item.title" :value="item.title"></v-list-item>
+        </template>
+    </v-list>
+</template>
