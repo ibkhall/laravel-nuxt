@@ -8,7 +8,7 @@ use Orion\Concerns\DisablePagination;
 
 class PermissionController extends Controller
 {
-    use DisablePagination;
+    
     
     protected $model = Permission::class;
 }
