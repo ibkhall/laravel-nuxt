@@ -17,7 +17,7 @@
                 </template>
                 
                     <template v-for="el in child.children">
-                        <v-list-item :to="el.to" class="rounded-e-xl" rounded v-ripple :title="el.title">
+                        <v-list-item :to="el.to" class="rounded-e-xl" rounded v-ripple :title="el.title" :value="el.title">
                         <template v-slot:prepend>
                             <v-icon size="x-small" class="ml-7" start :icon="el.icon"></v-icon>
                         </template>
