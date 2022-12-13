@@ -53,6 +53,7 @@ const onPerPage = async (value: number) => {
     data.value = await props.model.$query().lookFor(search.value).search(value,page.value)
     paginationLength.value = data.value[0]?.$response?.data.meta.last_page
     perPage.value = value
+    loading.value = false
 }
 
 const toggleDirection = async (item: Header) => {
