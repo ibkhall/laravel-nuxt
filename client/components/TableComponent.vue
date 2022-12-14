@@ -14,7 +14,9 @@ interface Header {title: string, value: string, class: string, sortable?: boolea
 
 const props = defineProps<{
     headers: Array<Header>,
-    model: Model
+    model: Model,
+    deletable: boolean,
+    editable: boolean
 }>()
 const data = ref<Array<Model>>([])
 const page = ref(0)
@@ -91,7 +93,12 @@ const toggleDirection = async (item: Header) => {
     <v-table>
         <tr>
             <td :colspan="headers.length">
-                <v-progress-linear :active="loading" color="primary" indeterminate></v-progress-linear></td>
+                <v-progress-linear height="5" :active="loading" color="primary" indeterminate></v-progress-linear></td>
+        </tr>
+        <tr v-if="data.length==0">
+            <td :colspan="headers.length">
+                <div class="text-center cursor-pointer">Aucune donnée</div>
+            </td>
         </tr>
     <thead class="elevation-5">
         <tr>
@@ -123,10 +130,15 @@ const toggleDirection = async (item: Header) => {
         <template v-for="item in data">
             <tr>
                 <template v-for="head in headers">
-                    <td class="border">{{ item.$attributes[head.value] }}</td>
+                    <td class="border">
+
+                        <slot v-if="!$slots[head.value]" :name="head.value">{{ item.$attributes[head.value] }}</slot>
+                        <slot v-if="$slots[head.value]" :name="head.value" v-bind="item.$attributes"></slot>
+                    </td>
                 </template>
             </tr>
         </template>
+        
     </tbody>
     <tfoot>
         <td :colspan="headers.length">
