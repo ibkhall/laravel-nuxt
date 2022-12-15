@@ -25,5 +25,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['as' => 'api.'], function() {
     Orion::resource('users', UserController::class);
     Orion::resource('roles', RoleController::class);
-    Orion::resource('permissions', PermissionController::class)->only('index');
+    Orion::resource('permissions', PermissionController::class)->only('index', 'search');
 });
