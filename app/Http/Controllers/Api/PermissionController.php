@@ -11,4 +11,14 @@ class PermissionController extends Controller
     
     
     protected $model = Permission::class;
+
+    public function searchableBy() : array
+    {
+        return ['id', 'name'];
+    }
+
+    public function sortableBy() : array
+    {
+         return ['id', 'name'];
+    }
 }
