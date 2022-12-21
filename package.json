@@ -16,6 +16,6 @@
   "dependencies": {
     "@tailflow/laravel-orion": "^2.1.2",
     "axios": "^1.2.1",
-    "vuetify": "^3.0.5"
+    "vuetify": "^3.0.6"
   }
 }
