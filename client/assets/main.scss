@@ -1,23 +1,2 @@
 @use "vuetify";
 
-// Override the textfield's radius
-.v-text-field {
-	.v-field__outline__start {
-		border-radius: 15px 0 0 15px !important;
-	}
-	.v-field__outline__end {
-		border-radius: 0 10px 10px 0 !important;
-	}
-}
-
-.v-btn {
-	font-weight: 700 !important;
-}
-.label {
-	font-weight: 600;
-	font-size: 15px;
-	margin-bottom: 6px;
-	display: inline-block;
-	cursor: pointer;
-}
-
