@@ -59,7 +59,10 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 const form = reactive({email: '', password: ''})
-
+useHead({
+	title: 'Authentification',
+	titleTemplate: '%s - Boilerplate',
+})
 const submit = async () => {
     axios.get('http://localhost:8000/sanctum/csrf-cookie').then(r => {
         axios.post('http://localhost:8000/login', form).then(() =>{

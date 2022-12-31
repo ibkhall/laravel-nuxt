@@ -1,3 +1,5 @@
+import {object,string,array} from 'yup'
+
 export const useFormRules = () => {
 	return {
 		ruleRequired: (v: any) => !!v || "Required",
@@ -9,3 +11,26 @@ export const useFormRules = () => {
 		rulePassLen: (v: string) => (!!v && v.length >= 6) || "Password must be 6 chars or more",
 	};
 };
+
+
+
+
+export const useRoleRules = () => {
+	return object({
+		name: string().required().min(3),
+		description: string().required().min(3),
+		permissions: array()
+	  });
+}
+
+
+export const useUserRules = () => {
+	return object({
+		name: string().required().min(3),
+		email: string().email().required(),
+		roles: array(),
+		permissions: array(),
+	  });
+}
+  
+  
