@@ -16,7 +16,7 @@ class AuthController extends BaseController
             'password' => 'required|min:6'
         ]);
 
-        if (!Auth::attempt($request->only('email', 'password'))) {
+        if (!Auth::guard('web')->attempt($request->only('email', 'password'))) {
             return response()->json([
               'errors' => [
                 'email' => trans('auth.failed'),

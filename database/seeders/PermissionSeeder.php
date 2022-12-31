@@ -15,10 +15,10 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        Permission::create(['name' => 'manage_permissions']);
-        Permission::create(['name' => 'create.user']);
-        Permission::create(['name' => 'update.user']);
-        Permission::create(['name' => 'read.user']);
-        Permission::create(['name' => 'delete.user']);
+        Permission::create(['name' => 'manage_permissions', 'description' => 'Gérer les accès']);
+        Permission::create(['name' => 'user.create', 'description' => 'Créer un utilisateur']);
+        Permission::create(['name' => 'user.update', 'description' => 'Modifier un utilisateur']);
+        Permission::create(['name' => 'user.read', 'description' => 'Voir les utilisateur']);
+        Permission::create(['name' => 'user.delete', 'description' => 'Supprimer un utilisateur']);
     }
 }
