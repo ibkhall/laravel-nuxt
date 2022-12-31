@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\RolePermissionsController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\UserPermissionsController;
+use App\Http\Controllers\Api\UserRolesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Orion\Facades\Orion;
@@ -18,12 +21,15 @@ use Orion\Facades\Orion;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    return $request->user()->append('allPermissions', 'allRoles');
 });
 
 
-Route::group(['as' => 'api.'], function() {
-    Orion::resource('users', UserController::class);
+Route::group(['as' => 'api.', 'middleware' => ['auth:api']], function() {
+    Orion::resource('users', UserController::class)->withSoftDeletes();
+    Orion::belongsToManyResource('users','roles', UserRolesController::class);
+    Orion::belongsToManyResource('users','permissions', UserPermissionsController::class);
     Orion::resource('roles', RoleController::class);
+    Orion::belongsToManyResource('roles', 'permissions', RolePermissionsController::class);
     Orion::resource('permissions', PermissionController::class)->only('index', 'search');
 });

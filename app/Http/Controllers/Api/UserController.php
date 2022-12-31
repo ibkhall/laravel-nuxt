@@ -9,6 +9,11 @@ class UserController extends Controller
 {
     protected $model = User::class;
 
+    public function includes() : array
+    {
+        return ['permissions', 'roles'];
+    }
+
     public function searchableBy() : array
     {
         return ['name', 'email'];
@@ -16,6 +21,6 @@ class UserController extends Controller
 
     public function sortableBy() : array
     {
-         return ['id', 'name','email'];
+         return ['id', 'name','email', 'created_at', 'updated_at'];
     }
 }
