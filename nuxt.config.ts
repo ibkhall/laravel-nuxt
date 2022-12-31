@@ -4,8 +4,10 @@ import vuetify from "vite-plugin-vuetify";
 export default defineNuxtConfig({
     static: './client/public/',
     srcDir: 'client/',
-    meta: {
+    head: {
       title: 'Boilerplate',
+    },
+    meta: {
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui' },
@@ -19,9 +21,10 @@ export default defineNuxtConfig({
     modules: [
 
       async (options, nuxt) => {
-        
-        nuxt.hooks.hook("vite:extendConfig", (config) => config.plugins.push(vuetify()));
-      },
+        nuxt.hooks.hook('vite:extendConfig', config => config.plugins.push(
+          vuetify()
+        ))
+      }
     ],
     vite: {
       define: {
