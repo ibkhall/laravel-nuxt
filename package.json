@@ -14,8 +14,14 @@
     "vite-plugin-vuetify": "^1.0.0"
   },
   "dependencies": {
+    "@sweetalert2/themes": "^5.0.15",
     "@tailflow/laravel-orion": "^2.1.2",
     "axios": "^1.2.1",
-    "vuetify": "^3.0.6"
+    "mitt": "^3.0.0",
+    "sweetalert2": "^11.4.8",
+    "vee-validate": "^4.7.3",
+    "vue-gates": "^2.1.2",
+    "vuetify": "^3.0.6",
+    "yup": "^0.32.11"
   }
 }
