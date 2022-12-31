@@ -1,10 +1,20 @@
 <script setup lang="ts">
+import axios from "axios";
 import { mdiAccount } from '@mdi/js';
-
+axios.defaults.withCredentials = true;
+const {$gates, provide} = useNuxtApp()
 let drawer = ref(true);
-const imgUrl = new URL('../img/logo.png', import.meta.url).href
-const bgUrl = new URL('../img/bg.jpeg', import.meta.url).href
-const maleImg = new URL('../img/male.png', import.meta.url).href
+const imgUrl = '/img/logo.png'
+const bgUrl = '../img/bg.jpeg'
+const maleImg = '/img/male.png'
+const response = await axios.get('http://localhost:8000/api/user')
+provide('user', response.data)
+const $user = useNuxtApp().$user
+$gates.setRoles($user.allRoles)
+$gates.setPermissions($user.allPermissions)
+useHead({
+  titleTemplate: '%s - Boilerplate',
+})
 
 </script>
 
@@ -25,12 +35,12 @@ const maleImg = new URL('../img/male.png', import.meta.url).href
             </template>
         </v-list-item>
     </v-toolbar>
-    <v-card class="rounded-0" variant="text" :image="bgUrl" height="150">
+    <v-card class="rounded-0" variant="elevated" :image="bgUrl" height="150">
         <v-list-item
         class="mt-10"
         color="black"
-        title="John Doe"
-        subtitle="Administrateur"
+        :title="$user.name"
+        :subtitle="$user.allRoles"
         >
         
             <template v-slot:prepend>
@@ -48,7 +58,7 @@ const maleImg = new URL('../img/male.png', import.meta.url).href
 </v-navigation-drawer>
 
 <v-app-bar elevation="3" app color="primary" class="rounded-be-xl">
-    <v-app-bar-nav-icon class="bg-pink-lighten-1" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon class="bg-indigo rounded-lg"  @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
     <v-spacer></v-spacer>
 
@@ -74,10 +84,10 @@ const maleImg = new URL('../img/male.png', import.meta.url).href
                 </v-col>
                 <v-col cols="12">
                         <v-list-item>
-                            <v-list-item-title>Content filtering</v-list-item-title>
+                            <v-list-item-title>{{ $user.name }}</v-list-item-title>
 
                             <v-list-item-subtitle>
-                            Administrateur
+                                {{ $user.allRoles.join(', ') }}
                             </v-list-item-subtitle>
                         </v-list-item>
                     
