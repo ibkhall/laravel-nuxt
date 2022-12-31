@@ -14,11 +14,11 @@ class PermissionController extends Controller
 
     public function searchableBy() : array
     {
-        return ['id', 'name'];
+        return ['name', 'description'];
     }
 
     public function sortableBy() : array
     {
-         return ['id', 'name'];
+         return ['name', 'description'];
     }
 }
