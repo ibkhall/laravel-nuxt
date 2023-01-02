@@ -1,4 +1,4 @@
-import { mdiAccount, mdiSquareMedium, mdiViewDashboard, mdiSecurity, mdiShieldLock,mdiShieldAccount } from '@mdi/js';
+import { mdiAccountMultiple, mdiSquareMedium, mdiViewDashboard, mdiCogs,mdiShieldAccount,mdiListBox } from '@mdi/js';
 
 interface Item {
     title: string,
@@ -15,7 +15,7 @@ const items: Item[] = [
     },
     {
         title: 'Utilisateurs',
-        icon: mdiAccount,
+        icon: mdiAccountMultiple,
         children: [
             {
                 title: 'Ajouter un utilisateur',
@@ -30,20 +30,20 @@ const items: Item[] = [
         ]
     },
     {
-        title: 'Droits d\'accès',
-        icon: mdiShieldAccount,
+        title: 'Sytème',
+        icon: mdiCogs,
         children: [
             {
-                title: 'Rôles',
-                icon: mdiShieldLock,
+                title: 'Droits d\'accès',
+                icon: mdiShieldAccount,
                 children: [
                     {
-                        title: 'Ajouter un rôle',
+                        title: 'Permissions',
                         icon: mdiSquareMedium,
-                        to: {name: 'roles-create'}
+                        to: {name: 'permissions'}
                     },
                     {
-                        title: 'Liste rôles',
+                        title: 'Rôles',
                         icon: mdiSquareMedium,
                         to: {name: 'roles'}
                     }
@@ -51,12 +51,12 @@ const items: Item[] = [
                 
             },
             {
-                title: 'Permissions',
-                icon: mdiSecurity,
-                to: {name: 'permissions'}
+                title: 'Logs',
+                icon: mdiListBox,
+                to: {name: 'logs'}
             }
         ]
-    },
+    }
    
 ]
 

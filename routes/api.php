@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ActivityController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\RolePermissionsController;
@@ -32,4 +33,5 @@ Route::group(['as' => 'api.', 'middleware' => ['auth:api']], function() {
     Orion::resource('roles', RoleController::class);
     Orion::belongsToManyResource('roles', 'permissions', RolePermissionsController::class);
     Orion::resource('permissions', PermissionController::class)->only('index', 'search');
+    Orion::resource('activities', ActivityController::class)->only('index', 'search');
 });

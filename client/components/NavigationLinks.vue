@@ -1,5 +1,5 @@
 <template>
-  <v-list active-color="pink" nav>
+  <v-list active-color="secondary" nav>
         <template  v-for="item in links" :key="item.title"> 
         <v-list-group v-if="item.children" fluid>
             <template v-slot:activator="{ props }">

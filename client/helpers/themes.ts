@@ -1,4 +1,5 @@
 import { ThemeDefinition } from "vuetify";
+import colors from 'vuetify/lib/util/colors'
 
 // String that represents the name of the theme I am using
 export const MAIN_THEME = "mainTheme";
@@ -9,7 +10,7 @@ export const mainTheme: ThemeDefinition = {
 		background: "#FFFFFF",
 		surface: "#FFFFFF",
 		primary: "#4f46e5",
-		secondary: "#9333ea",
+		secondary: colors.pink.base,
 		error: "#ef4444",
 		info: "#3b82f6",
 		success: "#22c55e",

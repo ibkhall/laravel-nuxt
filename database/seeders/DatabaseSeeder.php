@@ -3,7 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Spatie\Activitylog\Facades\CauserResolver;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,13 +19,13 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        $this->call(RoleSeeder::class);
-        $this->call(PermissionSeeder::class);
-
         $user = \App\Models\User::factory()->create([
             'name' => 'Super Admin',
             'email' => 'admin@app.com',
         ]);
+        CauserResolver::setCauser(User::find(1));
+        $this->call(RoleSeeder::class);
+        $this->call(PermissionSeeder::class);
         $user->assignRole(1);
     }
 }
