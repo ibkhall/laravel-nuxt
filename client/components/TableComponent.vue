@@ -96,7 +96,7 @@ const toggleDirection = async (item: Header) => {
             <v-text-field bg-color="blue-grey-lighten-5" @update:model-value="onSearch" variant="outlined" v-model="search" density="compact" class="mb-1" clearable hide-details placeholder="Recherche..." color="grey" type="search"></v-text-field>
         </v-col>
     </v-row>
-    <v-table hover class="border border-md rounded d-block border-primary rounded-t-lg">
+    <v-table v-bind="$attrs" hover class="border border-md rounded d-block border-primary rounded-t-lg">
         <tr>
             <td :colspan="headers.length">
                 <v-progress-linear height="5" :active="loading" color="primary" indeterminate></v-progress-linear></td>
