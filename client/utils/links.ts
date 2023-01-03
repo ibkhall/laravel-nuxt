@@ -1,4 +1,4 @@
-import { mdiAccountMultiple, mdiSquareMedium, mdiViewDashboard, mdiCogs,mdiShieldAccount,mdiListBox } from '@mdi/js';
+import { mdiAccountMultiple, mdiSquareMedium, mdiViewDashboard, mdiCogs,mdiShieldAccount,mdiListBox, mdiCog } from '@mdi/js';
 
 interface Item {
     title: string,
@@ -30,7 +30,7 @@ const items: Item[] = [
         ]
     },
     {
-        title: 'Sytème',
+        title: 'Système',
         icon: mdiCogs,
         children: [
             {
@@ -49,6 +49,11 @@ const items: Item[] = [
                     }
                 ]
                 
+            },
+            {
+                title: 'Configuration',
+                icon: mdiCog,
+                to: {name: 'system'}
             },
             {
                 title: 'Logs',

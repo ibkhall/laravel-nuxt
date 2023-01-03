@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\RolePermissionsController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\UserPermissionsController;
 use App\Http\Controllers\Api\UserRolesController;
+use App\Http\Controllers\SystemController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Orion\Facades\Orion;
@@ -27,6 +28,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::group(['as' => 'api.', 'middleware' => ['auth:api']], function() {
+    Orion::resource('system', SystemController::class)->only('show', 'update');
     Orion::resource('users', UserController::class)->withSoftDeletes();
     Orion::belongsToManyResource('users','roles', UserRolesController::class);
     Orion::belongsToManyResource('users','permissions', UserPermissionsController::class);

@@ -32,5 +32,33 @@ export const useUserRules = () => {
 		permissions: array(),
 	  });
 }
+
+
+export const useSystemRules = () => {
+	return object({
+		name: string().required().min(3),
+		file: object().nullable(),
+		address: string().required().min(3),
+		telephone1:string().matches(
+			/^(6|7|8|9)\d{7}$/,
+			'Numéro de téléphone non valide'
+		  ),
+		telephone2: string().matches(
+			/^$|^(6|7|8|9)\d{7}$/,
+			'Numéro de téléphone non valide'
+		  ).transform(value => value || '')
+		 ,
+		telephone3: string().matches(
+			/^$|^(6|7|8|9)\d{7}$/,
+			'Numéro de téléphone non valide'
+		  ).transform(value => value || '')
+		  ,
+		telephone4: string().matches(
+			/^$|^(6|7|8|9)\d{7}$/,
+			'Numéro de téléphone non valide'
+		  ).transform(value => value || '')
+		  ,
+	  });
+}
   
   

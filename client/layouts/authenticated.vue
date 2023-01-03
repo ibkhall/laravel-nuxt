@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import axios from "axios";
 import { mdiAccount } from '@mdi/js';
+import {System} from '@/models/System'
 axios.defaults.withCredentials = true;
 const {$gates, provide} = useNuxtApp()
 let drawer = ref(true);
@@ -8,6 +9,8 @@ const imgUrl = '/img/logo.png'
 const bgUrl = '../img/bg.jpeg'
 const maleImg = '/img/male.png'
 const response = await axios.get('http://localhost:8000/api/user')
+const system = await System.$query().find(1)
+provide('system', system)
 provide('user', response.data)
 const $user = useNuxtApp().$user
 $gates.setRoles($user.allRoles)
@@ -25,12 +28,12 @@ useHead({
     <v-navigation-drawer rounded="10" app v-model="drawer">
     <v-toolbar elevation="3" dense color="primary" class="rounded-ts-xl">
         <v-list-item
-        title="Boilerplate"
+        :title="useNuxtApp().$system.$attributes.name"
         >
         
             <template v-slot:prepend>
             <v-avatar>
-                <v-img width="80" :src="imgUrl"></v-img>
+                <v-img width="80" :src="'http://localhost:8000/'+useNuxtApp().$system.$attributes.logo"></v-img>
             </v-avatar>
             </template>
         </v-list-item>
