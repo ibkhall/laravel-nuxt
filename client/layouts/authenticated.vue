@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import axios from "axios";
-import { mdiAccount } from '@mdi/js';
+import { mdiAccount, mdiLogout, mdiLock } from '@mdi/js';
 import {System} from '@/models/System'
 axios.defaults.withCredentials = true;
 const {$gates, provide} = useNuxtApp()
@@ -10,8 +10,8 @@ const bgUrl = '../img/bg.jpeg'
 const maleImg = '/img/male.png'
 const response = await axios.get('http://localhost:8000/api/user')
 const system = await System.$query().find(1)
-provide('system', system)
-provide('user', response.data)
+useNuxtApp().$system ?? provide('system', system)
+useNuxtApp().$user ?? provide('user', response.data)
 const $user = useNuxtApp().$user
 $gates.setRoles($user.allRoles)
 $gates.setPermissions($user.allPermissions)
@@ -19,6 +19,14 @@ useHead({
   titleTemplate: '%s - Boilerplate',
 })
 
+
+
+const logout =  () => {
+    useApi('http://localhost:8000/logout', {method: 'POST'}).then(() => {
+        navigateTo('/')
+        useApi('http://localhost:8000/sanctum/csrf-cookie')
+    })
+}
 </script>
 
 <template>
@@ -99,10 +107,10 @@ useHead({
             </v-card-text>
         </v-card>
 
-        <v-list dense>
-            <v-list-item rounded v-ripple class="text-grey-darken-3" :prepend-icon="mdiAccount" title="Mon Profil"></v-list-item>
-            <v-list-item rounded v-ripple class="text-grey-darken-3" :prepend-icon="mdiAccount" title="Changement de mot de passe"></v-list-item>
-            <v-list-item rounded v-ripple class="text-grey-darken-3" :prepend-icon="mdiAccount" title="Déconnexion"></v-list-item>
+        <v-list dense color="primary">
+            <v-list-item :to="{name: 'users-show-id', params: {id: useNuxtApp().$user.id}}" rounded v-ripple :prepend-icon="mdiAccount" title="Mon Profil"></v-list-item>
+            <v-list-item rounded v-ripple :prepend-icon="mdiLock" title="Changement de mot de passe"></v-list-item>
+            <v-list-item @click="logout" rounded v-ripple :prepend-icon="mdiLogout" title="Déconnexion"></v-list-item>
         </v-list>
     </v-menu>
 </v-app-bar>
