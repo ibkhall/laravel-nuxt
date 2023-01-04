@@ -21,8 +21,8 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         $user = \App\Models\User::factory()->create([
-            'name' => 'Super Admin',
-            'email' => 'admin@app.com',
+            'name' => 'supadmin',
+            'email' => 'supadmin@app.com',
         ]);
         CauserResolver::setCauser(User::find(1));
         System::create(['name' => 'Boilerplate', 'address' => 'Niamey', 'logo' => 'logo.png', 'telephone1' => '00000000']);

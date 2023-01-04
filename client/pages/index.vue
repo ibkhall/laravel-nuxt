@@ -5,25 +5,20 @@
 				<VRow no-gutters align="center" justify="center">
 					<VCol cols="12" md="6">
 						<h1>Se connecter</h1>
-						<p class="text-medium-emphasis">Enter your details to get started</p>
+						<p class="text-medium-emphasis">Entrer vos identifiants</p>
 
-						<VForm @submit.prevent="submit" class="mt-7">
+						<Form :validation-schema="schema" @submit="submit" class="mt-7">
 							<div class="mt-1">
-								<label class="label text-grey-darken-2" for="email">Email</label>
-								<VTextField
-									:rules="[ruleRequired, ruleEmail]"
-									v-model="form.email"
-									:prepend-inner-icon="mdiEmail"
-									id="email"
-									name="email"
-									type="email"
+								<label class="label text-grey-darken-2" for="name">Nom d'utilisateur</label>
+								<TextField
+									:prepend-inner-icon="mdiAccount"
+									id="name"
+									name="name"
 								/>
 							</div>
 							<div class="mt-1">
-								<label class="label text-grey-darken-2" for="password">Password</label>
-								<VTextField
-									:rules="[ruleRequired, rulePassLen]"
-									v-model="form.password"
+								<label class="label text-grey-darken-2" for="password">Mot de passe</label>
+								<TextField
 									:prepend-inner-icon="mdiFormTextboxPassword"
 									id="password"
 									name="password"
@@ -33,7 +28,7 @@
 							<div class="mt-5">
 								<VBtn type="submit" block min-height="44" color="primary">Sign In</VBtn>
 							</div>
-						</VForm>
+						</Form>
 					</VCol>
 				</VRow>
 			</VCol>
@@ -53,25 +48,29 @@
 </template>
 
 <script setup lang="ts">
-import { mdiFormTextboxPassword, mdiEmail } from '@mdi/js';
-import axios from "axios";
+import { mdiFormTextboxPassword, mdiAccount } from '@mdi/js';
+import { Form, SubmissionContext } from 'vee-validate';
 
-axios.defaults.withCredentials = true;
 
-const form = reactive({email: '', password: ''})
 useHead({
 	title: 'Authentification',
 	titleTemplate: '%s - Boilerplate',
 })
-const submit = async () => {
-    axios.get('http://localhost:8000/sanctum/csrf-cookie').then(r => {
-        axios.post('http://localhost:8000/login', form).then(() =>{
-            navigateTo({
-                path: '/dashboard'
-            })
-        })
+const submit = async (values: any, {setErrors}: SubmissionContext) => {
+    useApi('http://localhost:8000/sanctum/csrf-cookie').then(async (r) => {
+		useApi('http://localhost:8000/login', {body: values, method: 'post', onResponse: (res) => {
+			if(res.response.status=== 200) {
+				navigateTo({
+				path: '/dashboard'
+				})
+			}else {
+				setErrors(res.response._data.errors)
+			}
+			
+		}})
+		
     })
 }
-const { ruleEmail, rulePassLen, ruleRequired } = useFormRules()
+const schema = useLoginRules()
 
 </script>

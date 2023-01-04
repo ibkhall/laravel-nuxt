@@ -109,7 +109,7 @@ const logout =  () => {
 
         <v-list dense color="primary">
             <v-list-item :to="{name: 'users-show-id', params: {id: useNuxtApp().$user.id}}" rounded v-ripple :prepend-icon="mdiAccount" title="Mon Profil"></v-list-item>
-            <v-list-item rounded v-ripple :prepend-icon="mdiLock" title="Changement de mot de passe"></v-list-item>
+            <v-list-item :to="{name: 'users-password-reset'}" rounded v-ripple :prepend-icon="mdiLock" title="Changement de mot de passe"></v-list-item>
             <v-list-item @click="logout" rounded v-ripple :prepend-icon="mdiLogout" title="Déconnexion"></v-list-item>
         </v-list>
     </v-menu>
