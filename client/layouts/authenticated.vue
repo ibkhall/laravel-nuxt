@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import axios from "axios";
 import { mdiAccount, mdiLogout, mdiLock } from '@mdi/js';
 import {System} from '@/models/System'
-axios.defaults.withCredentials = true;
+
+useNuxtApp().vueApp.config.errorHandler = async (error: any, context) => {
+    if(error.message=== 'Request failed with status code 401') {
+        await navigateTo('/')
+        window.location.reload()
+    }
+  }
 const {$gates, provide} = useNuxtApp()
 let drawer = ref(true);
-const imgUrl = '/img/logo.png'
-const bgUrl = '../img/bg.jpeg'
+const bgUrl = '/img/bg.jpeg'
 const maleImg = '/img/male.png'
-const response = await axios.get('http://localhost:8000/api/user')
+const response = await useApi('/user')
 const system = await System.$query().find(1)
 useNuxtApp().$system ?? provide('system', system)
 useNuxtApp().$user ?? provide('user', response.data)
@@ -16,7 +20,7 @@ const $user = useNuxtApp().$user
 $gates.setRoles($user.allRoles)
 $gates.setPermissions($user.allPermissions)
 useHead({
-  titleTemplate: '%s - Boilerplate',
+  titleTemplate: '%s - '+useNuxtApp().$system.$attributes.name,
 })
 
 
