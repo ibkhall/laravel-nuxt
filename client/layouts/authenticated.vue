@@ -69,7 +69,7 @@ const logout =  () => {
 </v-navigation-drawer>
 
 <v-app-bar elevation="3" app color="primary" class="rounded-be-xl">
-    <v-app-bar-nav-icon class="bg-indigo rounded-lg"  @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon class="bg-secondary rounded-lg"  @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
     <v-spacer></v-spacer>
 
