@@ -12,4 +12,19 @@ export const defaults: DefaultsInstance = {
 		variant: "outlined",
 		density: "comfortable",
 	},
+	VCombobox: {
+		color: "primary",
+		variant: "outlined",
+		density: "comfortable",
+	},
+	VAutocomplete: {
+		color: "primary",
+		variant: "outlined",
+		density: "comfortable",
+	},
+	VSelect: {
+		color: "primary",
+		variant: "outlined",
+		density: "comfortable",
+	},
 };

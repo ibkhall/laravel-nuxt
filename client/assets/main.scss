@@ -1,2 +1,10 @@
 @use "vuetify";
 
+.label {
+	font-weight: 549;
+	font-size: 1rem;
+	margin-bottom: 6px;
+	display: inline-block;
+	cursor: pointer;
+    color: #607d8b;
+}

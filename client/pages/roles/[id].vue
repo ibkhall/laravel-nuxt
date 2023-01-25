@@ -60,28 +60,17 @@ const items = [
     <v-card color="surface">
     <v-card-text>
         <div class="w-50 mx-md-auto">
-            <label for="name">Nom rôle</label>
+            <label class="label" for="name">Nom rôle</label>
             <text-field name="name" id="name"></text-field>
         </div>
         <div class="w-50 mx-md-auto">
-            <label for="description">Description rôle</label>
+            <label class="label" for="description">Description rôle</label>
             <text-field name="description" id="nadescriptionme"></text-field>
         </div>
         <div class="w-50 mx-auto">
-            <label for="permissions" class="body-1">Permissions</label>
-        </div>
-        <div class="w-50 mx-auto">
+            <label class="label" for="permissions">Permissions</label>
+            <AutocompleteField  v-model="values.permissions" chips multiple item-title="description" item-value="id" :items="permissions[0].$response?.data.data" id="permissions"></AutocompleteField>
         
-            <v-checkbox color="success"
-             class="d-inline-block" 
-             v-for="permission in permissions[0].$response?.data.data" 
-             :value="permission.id" 
-             :label="permission.description" 
-             name="permissions" 
-             v-model="values.permissions" 
-             multiple
-             />
-    
         </div>
         <div class="mx-md-auto w-50">
             <v-btn type="submit"  theme="dark" class="mr-md-2" variant="elevated" color="success">

@@ -1,13 +1,12 @@
 import { FetchOptions } from "ohmyfetch";
 
-const serverRoute: string = "http://localhost:8000";
-const apiRoute: string = `${serverRoute}/api`;
 const csrf_cookie: string = "XSRF-TOKEN";
 
 /**
  * Return the cookies needed by "Sanctum", browser will handle them automatically.
  */
 export const useFetchCookies = async () => {
+	const serverRoute: string = useRuntimeConfig().public.apiBase;
 	await $fetch.raw("/sanctum/csrf-cookie", {
 		baseURL: serverRoute,
 		credentials: "include" // Allow browser to handle cookies
@@ -22,6 +21,7 @@ export const useFetchCookies = async () => {
  * @param options
  */
 export const useApi = async (url: string, options?: FetchOptions) => {
+	const apiRoute: string = `${useRuntimeConfig().public.apiBase}/api`;
 	// First we verify if the `xsrf-token` is present on the browser cookies
 	let token = useCookie(csrf_cookie)?.value;
 

@@ -64,19 +64,19 @@ const onChange = (e: any) => {
                 <v-file-input label="Choisir le logo" :error-messages="errors.file" @change="onChange" v-model="values.file" variant="outlined"></v-file-input>
             </v-col>
             <v-col md="4">
-                <label for="name">Nom de la socièté</label>
+                <label class="label" for="name">Nom de la socièté</label>
                 <TextField id="name" name="name"></TextField>
-                <label for="address">Adresse</label>
+                <label class="label" for="address">Adresse</label>
                 <TextField id="address" name="address"></TextField>
-                <label for="telephone1">Téléphone 1</label>
+                <label class="label" for="telephone1">Téléphone 1</label>
                 <TextField id="telephone1" name="telephone1"></TextField>
             </v-col>
             <v-col md="4">
-                <label for="telephone2">Téléphone 2</label>
+                <label class="label" for="telephone2">Téléphone 2</label>
                 <TextField placeholder="optionel" id="telephone2" name="telephone2"></TextField>
-                <label for="telephone3">Téléphone 3</label>
+                <label class="label" for="telephone3">Téléphone 3</label>
                 <TextField placeholder="optionel" id="telephone3" name="telephone3"></TextField>
-                <label for="telephone4">Téléphone 4</label>
+                <label class="label" for="telephone4">Téléphone 4</label>
                 <TextField placeholder="optionel" id="telephone4" name="telephone4"></TextField>
             </v-col>
         </v-row>

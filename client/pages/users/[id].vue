@@ -62,49 +62,24 @@ const initialValues = {name: user.name, email: user.email, permissions: user.per
     <v-card-text>
     <v-row>
         <v-col  md="6">
-            <label for="name">Nom d'utilisateur</label>
+            <label class="label" for="name">Nom d'utilisateur</label>
             <text-field name="name" id="name"></text-field>
         </v-col>
         <v-col md="6">
-            <label for="email">Email</label>
+            <label class="label" for="email">Email</label>
             <text-field type="email" name="email" id="email"></text-field>
         </v-col>
     </v-row>
     <v-row>
         <v-col md="6">
-            <v-card variant="tonal" color="blue-grey">
-                <v-card-title class="text-blue-grey">Rôles</v-card-title>
-                <v-card-text>
-                    <v-checkbox color="primary"
-                        class="d-inline-block" 
-                        v-for="role in roles[0].$response?.data.data" 
-                        :value="role.id" 
-                        :label="role.description" 
-                        name="roles" 
-                        v-model="values.roles"
-                        multiple
-                    />
-                </v-card-text>
-            </v-card>
+            <label class="label" for="roles">Rôles</label>
+            <AutocompleteField  v-model="values.roles" chips multiple item-title="description" item-value="id" :items="roles[0].$response?.data.data" id="roles"></AutocompleteField>
+        
            
         </v-col>
         <v-col md="6">
-          <v-card variant="tonal" color="blue-grey">
-            <v-card-title class="text-blue-grey">Permissions</v-card-title>
-            <v-card-text>
-                <v-checkbox color="success"
-                    class="d-inline-block" 
-                    v-for="permission in permissions[0].$response?.data.data" 
-                    :value="permission.id" 
-                    :label="permission.description" 
-                    name="permissions" 
-                    v-model="values.permissions"
-                    multiple
-            
-                />
-            </v-card-text>
-          </v-card>
-
+            <label class="label" for="permissions">Permissions</label>
+            <AutocompleteField  v-model="values.permissions" chips multiple item-title="description" item-value="id" :items="permissions[0].$response?.data.data" id="permissions"></AutocompleteField>
         
         </v-col>
     </v-row>

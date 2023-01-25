@@ -1,6 +1,37 @@
 <script setup lang="ts">
 import { mdiAccount, mdiLogout, mdiLock } from '@mdi/js';
 import {System} from '@/models/System'
+import axios from 'axios';
+import {Orion} from "@tailflow/laravel-orion/lib/orion";
+Orion.makeHttpClientUsing(() => {
+  const client = axios.create();
+
+  client.interceptors.request.use(function (config) {
+    // Do something before request is sent
+    useLoading().value = true
+    return config;
+  }, function (error) {
+    // Do something with request error
+    useLoading().value = false
+    return Promise.reject(error);
+  });
+
+// Add a response interceptor
+client.interceptors.response.use(function (response) {
+        // Any status code that lie within the range of 2xx cause this function to trigger
+        // Do something with response data
+        useLoading().value = false
+        return response;
+    }, function (error) {
+        // Any status codes that falls outside the range of 2xx cause this function to trigger
+        // Do something with response error
+        useLoading().value = false
+        return Promise.reject(error);
+    });
+
+  return client;
+});
+
 
 useNuxtApp().vueApp.config.errorHandler = async (error: any, context) => {
     if(error.message=== 'Request failed with status code 401') {
@@ -8,14 +39,15 @@ useNuxtApp().vueApp.config.errorHandler = async (error: any, context) => {
         window.location.reload()
     }
   }
+
 const {$gates, provide} = useNuxtApp()
 let drawer = ref(true);
 const bgUrl = '/img/bg.jpeg'
 const maleImg = '/img/male.png'
-const response = await useApi('/user')
+const {data} = await useApi('/user')
 const system = await System.$query().find(1)
 useNuxtApp().$system ?? provide('system', system)
-useNuxtApp().$user ?? provide('user', response.data)
+useNuxtApp().$user ?? provide('user', data.value)
 const $user = useNuxtApp().$user
 $gates.setRoles($user.allRoles)
 $gates.setPermissions($user.allPermissions)
@@ -24,11 +56,13 @@ useHead({
 })
 
 
+const loading = useLoading()
+
 
 const logout =  () => {
-    useApi('http://localhost:8000/logout', {method: 'POST'}).then(() => {
+    useApi(`${useRuntimeConfig().public.apiBase}/logout`, {method: 'POST'}).then(() => {
         navigateTo('/')
-        useApi('http://localhost:8000/sanctum/csrf-cookie')
+        useApi(`${useRuntimeConfig().public.apiBase}/sanctum/csrf-cookie`)
     })
 }
 </script>
@@ -40,12 +74,15 @@ const logout =  () => {
     <v-navigation-drawer rounded="10" app v-model="drawer">
     <v-toolbar elevation="3" dense color="primary" class="rounded-ts-xl">
         <v-list-item
-        :title="useNuxtApp().$system.$attributes.name"
+        
         >
+        <template v-slot:title>
+            <span class="font-weight-bold text-uppercase">{{ useNuxtApp().$system.$attributes.name }}</span>
+        </template>
         
             <template v-slot:prepend>
-            <v-avatar>
-                <v-img width="80" :src="'http://localhost:8000/'+useNuxtApp().$system.$attributes.logo"></v-img>
+            <v-avatar size="60">
+                <v-img :src="`${useRuntimeConfig().public.apiBase}/`+useNuxtApp().$system.$attributes.logo"></v-img>
             </v-avatar>
             </template>
         </v-list-item>
@@ -73,7 +110,7 @@ const logout =  () => {
 </v-navigation-drawer>
 
 <v-app-bar elevation="3" app color="primary" class="rounded-be-xl">
-    <v-app-bar-nav-icon class="bg-secondary rounded-lg"  @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon size="small" class="bg-secondary p-0 rounded-circle"  @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
     <v-spacer></v-spacer>
 
@@ -119,6 +156,19 @@ const logout =  () => {
     </v-menu>
 </v-app-bar>
     <v-container fluid>
+        <div class="text-center">
+         <v-overlay
+            persistent
+            :model-value="loading"
+            class="align-center justify-center"
+            >
+            <v-progress-circular
+                color="secondary"
+                indeterminate
+                size="64"
+             ></v-progress-circular>
+        </v-overlay>
+        </div>
         <slot />
     </v-container>
 

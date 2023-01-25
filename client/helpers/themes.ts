@@ -9,7 +9,7 @@ export const mainTheme: ThemeDefinition = {
 	colors: {
 		background: "#FFFFFF",
 		surface: "#FFFFFF",
-		primary: colors.indigo.base,
+		primary: colors.indigo.darken2,
 		secondary: colors.pink.base,
 		error: "#ef4444",
 		info: "#3b82f6",

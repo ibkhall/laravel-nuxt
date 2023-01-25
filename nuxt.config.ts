@@ -2,21 +2,24 @@ import vuetify from "vite-plugin-vuetify";
 
 
 export default defineNuxtConfig({
+    runtimeConfig: {
+      public: {
+        apiBase: process.env.NUXT_API_BASE || 'http://localhost:8000',
+      }
+    },
     static: './client/public/',
     srcDir: 'client/',
-    head: {
-      title: 'Boilerplate',
-    },
-    meta: {
-      meta: [
-        { charset: 'utf-8' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui' },
-        { hid: 'description', name: 'description', content: process.env.npm_package_description || '' },
-      ],
+    app: {
+      head: {
+        charset: 'utf-8',
+        meta: [
+          { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui' },
+        ]
+      }
     },
     css: ["@/assets/main.scss"],
     build: {
-      transpile: ['vuetify'],
+      transpile: ['vuetify', '@vuepic/vue-datepicker'],
     },
     modules: [
 
@@ -31,5 +34,10 @@ export default defineNuxtConfig({
         'process.env.DEBUG': false,
       },
     },
-    ssr: false
+    ssr: false,
+    router: {
+      options: {
+        hashMode: true
+      }
+    }
 })

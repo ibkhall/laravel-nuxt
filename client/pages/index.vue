@@ -57,8 +57,8 @@ useHead({
 	titleTemplate: '%s - Boilerplate',
 })
 const submit = async (values: any, {setErrors}: SubmissionContext) => {
-    useApi('http://localhost:8000/sanctum/csrf-cookie').then(async (r) => {
-		useApi('http://localhost:8000/login', {body: values, method: 'post', onResponse: (res) => {
+    useApi(`${useRuntimeConfig().public.apiBase}/sanctum/csrf-cookie`).then(async (r) => {
+		useApi(`${useRuntimeConfig().public.apiBase}/login`, {body: values, method: 'post', onResponse: (res) => {
 			if(res.response.status=== 200) {
 				navigateTo({
 				path: '/dashboard'
