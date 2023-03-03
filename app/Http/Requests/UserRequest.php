@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Orion\Http\Requests\Request;
 
-class userRequest extends Request
+class UserRequest extends Request
 {
     public function storeRules() : array
     {
