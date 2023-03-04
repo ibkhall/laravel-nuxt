@@ -1,4 +1,8 @@
-@use "vuetify";
+@use 'vuetify/lib/styles/main.sass' with (
+  $color-pack: false,
+  $utilities: false,
+  $reset: false,
+);
 
 .label {
 	font-weight: 549;

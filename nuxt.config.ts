@@ -2,12 +2,14 @@ import vuetify from "vite-plugin-vuetify";
 
 
 export default defineNuxtConfig({
+    typescript: {
+      shim: false
+    },
     runtimeConfig: {
       public: {
         apiBase: process.env.NUXT_API_BASE || 'http://localhost:8000',
       }
     },
-    static: './client/public/',
     srcDir: 'client/',
     app: {
       head: {
@@ -24,7 +26,7 @@ export default defineNuxtConfig({
     modules: [
 
       async (options, nuxt) => {
-        nuxt.hooks.hook('vite:extendConfig', config => config.plugins.push(
+        nuxt.hooks.hook('vite:extendConfig', (config: any) => config.plugins.push(
           vuetify()
         ))
       }
