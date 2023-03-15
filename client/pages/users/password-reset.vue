@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import {User} from '@/models/User'
-import { mdiAccount, mdiStore, mdiCancel } from '@mdi/js';
+
 import { Form, SubmissionContext } from 'vee-validate';
 
 definePageMeta({
@@ -47,7 +46,7 @@ const save = async (values: any, {setErrors}: SubmissionContext) => {
 </script>
 
 <template>
-<AppToolbar title="Changement de mot de passe" :icon="mdiAccount" :prepend-icon="mdiAccount" :breadcrumbs="items"></AppToolbar>
+<AppToolbar title="Changement de mot de passe" icon="mdi-account" prepend-icon="mdi-account" :breadcrumbs="items"></AppToolbar>
 
 
         
@@ -65,11 +64,11 @@ const save = async (values: any, {setErrors}: SubmissionContext) => {
             <label for="password_confirmation">Confirmation de mot de passe</label>
             <text-field type="password" name="password_confirmation" id="password_confirmation"></text-field>
             <v-btn class="mr-2" type="submit" theme="dark" variant="elevated" color="success">
-                <v-icon start :icon="mdiStore"></v-icon>
+                <v-icon start icon="mdi-store"></v-icon>
                 Changer
             </v-btn>
             <v-btn :to="{name: 'dashboard'}" variant="elevated" color="grey">
-                <v-icon start :icon="mdiCancel"></v-icon>
+                <v-icon start icon="mdi-cancel"></v-icon>
                 Annuler
             </v-btn>
         </v-col>

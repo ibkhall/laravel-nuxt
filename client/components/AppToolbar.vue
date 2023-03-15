@@ -1,5 +1,5 @@
-<script setup lang="ts">
-import { mdiChevronRight } from '@mdi/js';
+<script lang="ts" setup>
+
 const props = defineProps<{
     icon: string,
     title: string,
@@ -8,25 +8,30 @@ const props = defineProps<{
 }>()
 
 
+
 </script>
+
 <template>
-<v-toolbar elevation="10" border density="compact" class="px-5 rounded-t-lg border-primary border-t-md border-b-md">
-   <v-card elevation="3" class="px-4 py-1 border-md  border-primary">
-    <v-icon color="primary" :icon="props.icon"></v-icon>
+<v-toolbar color="white" density="comfortable" elevation="2" border class="px-1 rounded-t-lg border-primary border-t-md border-b-md mb-2">
+   <v-card elevation="1" class="px-3 mx-3 py-1 border-md  border-primary">
+   <Icon size="1.6rem" class="text-primary" :name="props.icon"/>
    </v-card>
-    <v-toolbar-title class="h-1 font-weight-bold text-primary">{{ props.title }}</v-toolbar-title>
-    
-</v-toolbar>
-<v-toolbar elevation="1" color="white" border height="30" class="px-5 mb-3 border-primary border-opacity-25 border-md border-t-0 rounded-b-lg">
-   <v-spacer/>
-    <v-breadcrumbs active-color="primary" color="blue-grey" :items="props.breadcrumbs">
+   <v-divider vertical></v-divider>
+   <v-list lines="two" nav>
+    <v-list-item >
+      <v-toolbar-title class="text-h5 font-weight-medium text-blue-grey mt-3">{{ props.title }}</v-toolbar-title>
+     <v-list-item-subtitle>
+      <v-breadcrumbs density="compact" :items="props.breadcrumbs">
         <template v-slot:prepend>
-        <v-icon color="primary" :icon="props.prependIcon"></v-icon>
+          <Icon size="1rem" :name="props.prependIcon"/>
       </template>
       <template v-slot:divider>
-        <v-icon :icon="mdiChevronRight"></v-icon>
+        <Icon size="1rem" name="mdi:chevron-right"/>
       </template>
     </v-breadcrumbs>
+     </v-list-item-subtitle>
+    </v-list-item>
+   </v-list>
     
 </v-toolbar>
 

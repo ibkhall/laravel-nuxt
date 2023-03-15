@@ -1,4 +1,3 @@
-import { mdiAccountMultiple, mdiSquareMedium, mdiViewDashboard, mdiCogs,mdiShieldAccount,mdiListBox, mdiCog } from '@mdi/js';
 
 interface Item {
     title: string,
@@ -10,41 +9,41 @@ interface Item {
 const items: Item[] = [
     {
         title: 'Tablea de bord',
-        icon: mdiViewDashboard,
+        icon: 'mdi-view-dashboard',
         to: {name: 'dashboard'}
     },
     {
         title: 'Utilisateurs',
-        icon: mdiAccountMultiple,
+        icon: 'mdi-account-multiple',
         children: [
             {
                 title: 'Ajouter un utilisateur',
-                icon: mdiSquareMedium,
+                icon: 'mdi-square-medium',
                 to: {name: 'users-create'}
             },
             {
                 title: 'Liste utilisateurs',
-                icon: mdiSquareMedium,
+                icon: 'mdi-square-medium',
                 to: {name: 'users'}
             }
         ]
     },
     {
         title: 'Système',
-        icon: mdiCogs,
+        icon: 'mdi-cogs',
         children: [
             {
                 title: 'Droits d\'accès',
-                icon: mdiShieldAccount,
+                icon: 'mdi-shield-account',
                 children: [
                     {
                         title: 'Permissions',
-                        icon: mdiSquareMedium,
+                        icon: 'mdi-square-medium',
                         to: {name: 'permissions'}
                     },
                     {
                         title: 'Rôles',
-                        icon: mdiSquareMedium,
+                        icon: 'mdi-square-medium',
                         to: {name: 'roles'}
                     }
                 ]
@@ -52,12 +51,12 @@ const items: Item[] = [
             },
             {
                 title: 'Configuration',
-                icon: mdiCog,
+                icon: 'mdi-cog',
                 to: {name: 'system'}
             },
             {
                 title: 'Logs',
-                icon: mdiListBox,
+                icon: 'mdi-list-box',
                 to: {name: 'logs'}
             }
         ]

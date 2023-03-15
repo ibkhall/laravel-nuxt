@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import {Permission} from '@/models/Permission'
-import {Role} from '@/models/Role'
+
 import {User} from '@/models/User'
-import { mdiCardAccountDetails,mdiAccountMultiple, mdiStore, mdiCancel } from '@mdi/js';
+
 
 definePageMeta({
     layout: "authenticated"
@@ -37,7 +36,7 @@ const tab = ref('Activités')
 </script>
 
 <template>
-<AppToolbar title="Profil utilisateur" :icon="mdiCardAccountDetails" :prepend-icon="mdiAccountMultiple" :breadcrumbs="items"/>
+<AppToolbar title="Profil utilisateur" icon="mdi-card-account-details" prepend-icon="mdi-account-multiple" :breadcrumbs="items"/>
 
 <v-row>
   <v-col md="3">

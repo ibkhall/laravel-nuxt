@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Permission } from '@/models/Permission';
-import {mdiSecurity} from '@mdi/js'
 
 definePageMeta({
     layout: "authenticated"
@@ -25,7 +24,7 @@ const headers = [
 
 <template>
   
-  <AppToolbar title="Liste permissions" :icon="mdiSecurity" :prepend-icon="mdiSecurity" :breadcrumbs="items"></AppToolbar>
+  <AppToolbar title="Liste permissions" icon="mdi-security" prepend-icon="mdi-security" :breadcrumbs="items"></AppToolbar>
 <TableComponent :headers="headers" :model="Permission"/>
 
 

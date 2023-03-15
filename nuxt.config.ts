@@ -29,7 +29,8 @@ export default defineNuxtConfig({
         nuxt.hooks.hook('vite:extendConfig', (config: any) => config.plugins.push(
           vuetify()
         ))
-      }
+      },
+      'nuxt-icon'
     ],
     vite: {
       define: {

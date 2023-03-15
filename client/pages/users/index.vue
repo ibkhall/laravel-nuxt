@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { User } from '@/models/User';
-import {mdiPencil, mdiDelete, mdiAccountMultiple, mdiPlusCircle, mdiAccountDetails} from '@mdi/js'
+
 definePageMeta({
   layout: "authenticated"
 });
@@ -34,13 +34,13 @@ const items = [
 </script>
 
 <template>
-<AppToolbar title="Liste utilisateurs" :icon="mdiAccountMultiple" :prepend-icon="mdiAccountMultiple" :breadcrumbs="items"></AppToolbar>
+<AppToolbar title="Liste utilisateurs" icon="mdi-account-multiple" prepend-icon="mdi-account-multiple" :breadcrumbs="items"></AppToolbar>
 
 <div>
   <v-row justify="end">
     <v-col md="2" cols="4">
       <v-btn v-permission="'user.create'" exact :to="{name: 'users-create'}" theme="dark" class="ml-md-15 text-white" size="small" color="success">
-        <v-icon start :icon="mdiPlusCircle"></v-icon>
+        <v-icon start icon="mdi-plus-circle"></v-icon>
         Ajouter
       </v-btn>
     </v-col>
@@ -48,9 +48,9 @@ const items = [
   <TableComponent :headers="header" :model="User">
     <template v-slot:actions="{item}">
      
-      <v-btn :to="{name: 'users-show-id', params: {id: item.id as number}}" :icon="mdiAccountDetails" size="small" variant="text" color="info"/>
-      <v-btn :to="{name: 'users-id', params: {id: item.id as number}}" :icon="mdiPencil" size="small" variant="text" color="warning"/>
-      <v-btn :disabled="item.id==useNuxtApp().$user.id" :icon="mdiDelete" @click="onDelete(item)" size="small" variant="text" color="error"/>
+      <v-btn :to="{name: 'users-show-id', params: {id: item.id as number}}" icon="mdi-account-details" size="small" variant="text" color="info"/>
+      <v-btn :to="{name: 'users-id', params: {id: item.id as number}}" icon="mdi-pencil" size="small" variant="text" color="warning"/>
+      <v-btn :disabled="item.id==useNuxtApp().$user.id" icon="mdi-delete" @click="onDelete(item)" size="small" variant="text" color="error"/>
     </template>
   </TableComponent>
 

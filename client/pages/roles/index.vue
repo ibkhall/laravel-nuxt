@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Role } from '@/models/Role';
-import {mdiPencil, mdiDelete, mdiShieldLock, mdiPlusCircle} from '@mdi/js'
 
 definePageMeta({
   layout: "authenticated"
@@ -41,13 +40,13 @@ const items = [
 </script>
 
 <template>
-<AppToolbar title="Liste rôles" :icon="mdiShieldLock" :prepend-icon="mdiShieldLock" :breadcrumbs="items"></AppToolbar>
+<AppToolbar title="Liste rôles" icon="mdi-shield-lock" prepend-icon="mdi-shield-lock" :breadcrumbs="items"></AppToolbar>
 
 <div>
   <v-row justify="end">
     <v-col md="2" cols="4">
       <v-btn exact :to="{name: 'roles-create'}" theme="dark" class="ml-md-15 text-white" size="small" color="success">
-        <v-icon start :icon="mdiPlusCircle"></v-icon>
+        <v-icon start icon="mdi-plus-circle"></v-icon>
         Ajouter
       </v-btn>
     </v-col>
@@ -55,11 +54,11 @@ const items = [
   <TableComponent :headers="header" :model="Role" :relations="['permissions']">
     <template v-slot:actions="{item}">
      
-      <v-btn :to="{name: 'roles-id', params: {id: item.id as number}}" :icon="mdiPencil" size="small" variant="text" color="warning">
+      <v-btn :to="{name: 'roles-id', params: {id: item.id as number}}" icon="mdi-pencil" size="small" variant="text" color="warning">
       
       </v-btn>
 
-      <v-btn @click="onDelete(item)" :icon="mdiDelete" size="small" variant="text" color="error">
+      <v-btn @click="onDelete(item)" icon="mdi-delete" size="small" variant="text" color="error">
       </v-btn>
     </template>
     <template v-slot:permissions="{item}">

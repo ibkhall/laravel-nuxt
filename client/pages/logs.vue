@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Activity } from '@/models/Activity';
-import {mdiSecurity, mdiListBox} from '@mdi/js'
+
 
 definePageMeta({
     layout: "authenticated"
@@ -28,7 +28,7 @@ const headers = [
 
 <template>
   
-  <AppToolbar title="Logs" :icon="mdiListBox" :prepend-icon="mdiListBox" :breadcrumbs="items"></AppToolbar>
+  <AppToolbar title="Logs" icon="mdi-list-box" prepend-icon="mdi-list-box" :breadcrumbs="items"></AppToolbar>
 <TableComponent density="compact" :headers="headers" :model="Activity">
   <template v-slot:causer="{item}">{{ item.causer?.name }}</template>
   <template v-slot:description="{item}">

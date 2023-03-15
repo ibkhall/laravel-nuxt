@@ -1,6 +1,6 @@
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
-import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
+import {custom} from '../utils/custom-icons'
 import { MAIN_THEME, mainTheme, MAIN_DARK_THEME, mainDarkTheme } from "../helpers/themes";
 import { defaults } from "../helpers/defaults";
 
@@ -22,13 +22,12 @@ export default defineNuxtPlugin(nuxtApp => {
 				darken: 3,
 			},
 		},
-    icons: {
-      defaultSet: 'mdi',
-      aliases,
-      sets: {
-        mdi,
-      },
-    }
+		icons: {
+			defaultSet: 'custom',
+			sets: {
+			  custom,
+			},
+	},
   })
 
   nuxtApp.vueApp.use(vuetify)

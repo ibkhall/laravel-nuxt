@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import {mdiCog} from '@mdi/js'
 import { Form, SubmissionContext } from 'vee-validate';
 
 
@@ -48,7 +47,7 @@ const onChange = (e: any) => {
 
 <template>
   
-  <AppToolbar title="Configuration" :icon="mdiCog" :prepend-icon="mdiCog" :breadcrumbs="items"></AppToolbar>
+  <AppToolbar title="Configuration" icon="mdi-cog" prepend-icon="mdi-cog" :breadcrumbs="items"></AppToolbar>
 
 
 <Form @submit="save" v-slot="{values, errors}" :validation-schema="schema" :initial-values="$system.$attributes">

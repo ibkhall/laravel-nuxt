@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Model } from '../models/Model';
-import { mdiChevronUp , mdiChevronDown, mdiBookOpenPageVariantOutline  } from '@mdi/js';
+
 import { SortDirection } from '@tailflow/laravel-orion/lib/drivers/default/enums/sortDirection';
 const {$emitter} = useNuxtApp()
 enum Direction {
@@ -89,7 +89,7 @@ const toggleDirection = async (item: Header) => {
 <div>
     <v-row justify="start">
         <v-col md="2">
-            <v-select @update:model-value="onPerPage" v-model="perPage" bg-color="blue-grey-lighten-5" :prepend-inner-icon="mdiBookOpenPageVariantOutline" variant="outlined" :items="[10,15,30]" density="compact" class="mb-1"  hide-details></v-select>
+            <v-select @update:model-value="onPerPage" v-model="perPage" bg-color="blue-grey-lighten-5" prepend-inner-icon="mdi-book-open-page-variant-outline" variant="outlined" :items="[10,15,30]" density="compact" class="mb-1"  hide-details></v-select>
 
         </v-col>
         <v-col md="4">
@@ -116,10 +116,10 @@ const toggleDirection = async (item: Header) => {
                     <template v-slot:append>
                         <div>
                             <div class="d-block">
-                                <v-icon :color="item.sort == Direction.Asc ? 'white' : ''">{{ mdiChevronUp }}</v-icon>
+                                <v-icon :color="item.sort == Direction.Asc ? 'white' : ''">mdi-chevron-up</v-icon>
                             </div>
                             <div class="d-block">
-                                <v-icon :color="item.sort == Direction.Desc ? 'white' : ''">{{ mdiChevronDown }}</v-icon>
+                                <v-icon :color="item.sort == Direction.Desc ? 'white' : ''">mdi-chevron-down</v-icon>
                             </div>
                        </div>
                        

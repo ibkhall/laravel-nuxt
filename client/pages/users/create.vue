@@ -2,7 +2,6 @@
 import {Permission} from '@/models/Permission'
 import {Role} from '@/models/Role'
 import {User} from '@/models/User'
-import { mdiAccountPlus,mdiAccountMultiple, mdiStore, mdiCancel } from '@mdi/js';
 import { Form, SubmissionContext } from 'vee-validate';
 
 definePageMeta({
@@ -55,7 +54,7 @@ const initialValues = {roles: [], permissions: []}
 </script>
 
 <template>
-<AppToolbar title="Ajouter un utilisateur" :icon="mdiAccountPlus" :prepend-icon="mdiAccountMultiple" :breadcrumbs="items"></AppToolbar>
+<AppToolbar title="Ajouter un utilisateur" icon="mdi-account-plus" prepend-icon="mdi-account-plus" :breadcrumbs="items"></AppToolbar>
 
 
         
@@ -91,11 +90,11 @@ const initialValues = {roles: [], permissions: []}
 <v-card-actions>
     <v-spacer/>
     <v-btn type="submit" theme="dark" variant="elevated" color="success">
-        <v-icon start :icon="mdiStore"></v-icon>
+        <v-icon start icon="mdi-store"></v-icon>
         Enregistrer
     </v-btn>
     <v-btn :to="{name: 'users'}" variant="elevated" color="grey">
-        <v-icon start :icon="mdiCancel"></v-icon>
+        <v-icon start icon="mdi-cancel"></v-icon>
         Annuler
     </v-btn>
 </v-card-actions>

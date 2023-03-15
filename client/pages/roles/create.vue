@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {Permission} from '@/models/Permission'
 import {Role} from '@/models/Role'
-import { mdiShieldLock, mdiStore, mdiCancel } from '@mdi/js';
 import { Form, SubmissionContext } from 'vee-validate';
 
 const schema = useRoleRules()
@@ -50,7 +49,7 @@ const items = [
 </script>
 
 <template>
-<AppToolbar title="Ajouter un rôle" :icon="mdiShieldLock" :prepend-icon="mdiShieldLock" :breadcrumbs="items"></AppToolbar>
+<AppToolbar title="Ajouter un rôle" icon="mdi-shield-lock" prepend-icon="mdi-shield-lock" :breadcrumbs="items"></AppToolbar>
 
 
        
@@ -74,11 +73,11 @@ const items = [
         
         <div class="mx-md-auto w-50">
             <v-btn type="submit"  theme="dark" class="mr-md-2" variant="elevated" color="success">
-                <v-icon start :icon="mdiStore"></v-icon>
+                <v-icon start icon="mdi-store"></v-icon>
                 Enregistrer
             </v-btn>
             <v-btn :to="{name: 'roles'}" variant="elevated" color="grey">
-                <v-icon start :icon="mdiCancel"></v-icon>
+                <v-icon start icon="mdi-cancel"></v-icon>
                 Annuler
             </v-btn>
         </div>

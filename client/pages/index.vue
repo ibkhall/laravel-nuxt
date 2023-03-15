@@ -11,7 +11,7 @@
 							<div class="mt-1">
 								<label class="label text-grey-darken-2" for="name">Nom d'utilisateur</label>
 								<TextField
-									:prepend-inner-icon="mdiAccount"
+									prepend-inner-icon="mdi-account"
 									id="name"
 									name="name"
 								/>
@@ -19,7 +19,7 @@
 							<div class="mt-1">
 								<label class="label text-grey-darken-2" for="password">Mot de passe</label>
 								<TextField
-									:prepend-inner-icon="mdiFormTextboxPassword"
+									prepend-inner-icon="mdi-form-textbox-password"
 									id="password"
 									name="password"
 									type="password"
@@ -48,7 +48,6 @@
 </template>
 
 <script setup lang="ts">
-import { mdiFormTextboxPassword, mdiAccount } from '@mdi/js';
 import { Form, SubmissionContext } from 'vee-validate';
 
 
@@ -58,7 +57,7 @@ useHead({
 })
 const submit = async (values: any, {setErrors}: SubmissionContext) => {
     useApi(`${useRuntimeConfig().public.apiBase}/sanctum/csrf-cookie`).then(async (r) => {
-		useApi(`${useRuntimeConfig().public.apiBase}/login`, {body: values, method: 'post', onResponse: (res) => {
+		useApi(`${useRuntimeConfig().public.apiBase}/login`, {body: values, method: 'post', onResponse: (res: any) => {
 			if(res.response.status=== 200) {
 				navigateTo({
 				path: '/dashboard'
