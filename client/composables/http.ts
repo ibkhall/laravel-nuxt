@@ -1,4 +1,5 @@
 import { FetchOptions } from "ohmyfetch";
+import { Model } from "../models/Model";
 
 const csrf_cookie: string = "XSRF-TOKEN";
 
@@ -58,3 +59,25 @@ export const useApi = async (url: string, options?: FetchOptions) => {
 		...opts
 	});
 };
+
+
+export const useApiResult = (data: Model[]) => {
+	if(!data.length) {
+		return {
+			page: 1,
+			per_page: 10,
+			pagination_length: 1,
+			items: [],
+			total: 0
+
+		}
+	}
+	
+	return {
+		page: data[0]?.$response?.data.meta.current_page,
+		per_page: data[0]?.$response?.data.meta.per_page,
+		pagination_length: data[0]?.$response?.data.meta.last_page,
+		items: data[0]?.$response?.data.data,
+		total: data[0]?.$response?.data.meta.total,
+	}
+}

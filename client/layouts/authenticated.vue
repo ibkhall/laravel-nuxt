@@ -1,35 +1,6 @@
 <script setup lang="ts">
 import {System} from '@/models/System'
-import axios from 'axios';
-import {Orion} from "@tailflow/laravel-orion/lib/orion";
-Orion.makeHttpClientUsing(() => {
-  const client = axios.create();
 
-  client.interceptors.request.use(function (config) {
-    // Do something before request is sent
-    useLoading().value = true
-    return config;
-  }, function (error) {
-    // Do something with request error
-    useLoading().value = false
-    return Promise.reject(error);
-  });
-
-// Add a response interceptor
-client.interceptors.response.use(function (response) {
-        // Any status code that lie within the range of 2xx cause this function to trigger
-        // Do something with response data
-        useLoading().value = false
-        return response;
-    }, function (error) {
-        // Any status codes that falls outside the range of 2xx cause this function to trigger
-        // Do something with response error
-        useLoading().value = false
-        return Promise.reject(error);
-    });
-
-  return client;
-});
 
 
 useNuxtApp().vueApp.config.errorHandler = async (error: any, context) => {
@@ -38,24 +9,29 @@ useNuxtApp().vueApp.config.errorHandler = async (error: any, context) => {
         window.location.reload()
     }
   }
+const confirm = ref(null)
 
-const {$gates, provide} = useNuxtApp()
+onMounted(() => {
+    useConfirm().value = confirm.value
+})
+
+const {$gates} = useNuxtApp()
 let drawer = ref(true);
 const bgUrl = '/img/bg.jpeg'
 const maleImg = '/img/male.png'
 const {data} = await useApi('/user')
-const system = await System.$query().find(1)
-useNuxtApp().$system ?? provide('system', system)
-useNuxtApp().$user ?? provide('user', data.value)
-const $user = useNuxtApp().$user
-$gates.setRoles($user.allRoles)
-$gates.setPermissions($user.allPermissions)
+useUser().value = data.value as {id: number, name: string, email: string, allRoles: string[], allPermissions: string[]}
+
+useSystem().value =(await System.$query().find(1)).$attributes as {id: number, name: string, logo: string}
+
+const user = useUser().value
+const system = useSystem().value
+$gates.setRoles(user.allRoles)
+$gates.setPermissions(user.allPermissions)
 useHead({
-  titleTemplate: '%s - '+useNuxtApp().$system.$attributes.name,
+  titleTemplate: '%s - '+system.name,
 })
 
-
-const loading = useLoading()
 
 
 const logout =  () => {
@@ -68,20 +44,22 @@ const logout =  () => {
 
 <template>
   <VApp>
+    <Confirm ref="confirm"/>
     <NuxtLoadingIndicator :color="$vuetify.theme.current.colors.secondary" /> <!-- here -->
         <VMain>
+            
     <v-navigation-drawer rounded="10" app v-model="drawer">
     <v-toolbar elevation="3" dense color="primary" class="rounded-ts-xl">
         <v-list-item
         
         >
         <template v-slot:title>
-            <span class="font-weight-bold text-uppercase">{{ useNuxtApp().$system.$attributes.name }}</span>
+            <span class="font-weight-bold text-uppercase">{{ system.name }}</span>
         </template>
         
             <template v-slot:prepend>
             <v-avatar size="60">
-                <v-img :src="`${useRuntimeConfig().public.apiBase}/`+useNuxtApp().$system.$attributes.logo"></v-img>
+                <v-img :src="`${useRuntimeConfig().public.apiBase}/`+system.logo"></v-img>
             </v-avatar>
             </template>
         </v-list-item>
@@ -90,8 +68,8 @@ const logout =  () => {
         <v-list-item
         class="mt-10"
         color="black"
-        :title="$user.name"
-        :subtitle="$user.allRoles"
+        :title="user.name"
+        :subtitle="user.allRoles.join(',')"
         >
         
             <template v-slot:prepend>
@@ -114,13 +92,13 @@ const logout =  () => {
     <v-spacer></v-spacer>
 
     <v-menu>
-            <template v-slot:activator="{ on, props }">
+            <template v-slot:activator="{  props }">
             <v-btn
             color="primary"
             v-bind="props"
             >
             <v-avatar item size="32px">
-                    <v-img alt="user" :src="maleImg"></v-img>
+                <Icon size="2rem" name="flat-color-icons:businessman"/>
                 </v-avatar>
             </v-btn>
         </template>
@@ -129,16 +107,16 @@ const logout =  () => {
             <v-card-text>
             <v-row align="center" justify="center">
                 <v-col md="12" cols="12">
-                    <v-avatar class="profile" color="grey" size="80" >
-                        <v-img class="mx-auto" :src="maleImg"></v-img>
+                    <v-avatar class="profile" size="80" >
+                        <Icon size="4rem" name="flat-color-icons:businessman"/>
                     </v-avatar>
                 </v-col>
                 <v-col cols="12">
                         <v-list-item>
-                            <v-list-item-title>{{ $user.name }}</v-list-item-title>
+                            <v-list-item-title>{{ user.name }}</v-list-item-title>
 
                             <v-list-item-subtitle>
-                                {{ $user.allRoles.join(', ') }}
+                                {{ user.allRoles.join(', ') }}
                             </v-list-item-subtitle>
                         </v-list-item>
                     
@@ -148,26 +126,13 @@ const logout =  () => {
         </v-card>
 
         <v-list dense color="primary">
-            <v-list-item :to="{name: 'users-show-id', params: {id: useNuxtApp().$user.id}}" rounded v-ripple prepend-icon="mdi-account" title="Mon Profil"></v-list-item>
+            <v-list-item :to="{name: 'users-show-id', params: {id: user.id}}" rounded v-ripple prepend-icon="mdi-account" title="Mon Profil"></v-list-item>
             <v-list-item :to="{name: 'users-password-reset'}" rounded v-ripple prepend-icon="mdi-lock" title="Changement de mot de passe"></v-list-item>
             <v-list-item @click="logout" rounded v-ripple prepend-icon="mdi-logout" title="Déconnexion"></v-list-item>
         </v-list>
     </v-menu>
 </v-app-bar>
     <v-container fluid>
-        <div class="text-center">
-         <v-overlay
-            persistent
-            :model-value="loading"
-            class="align-center justify-center"
-            >
-            <v-progress-circular
-                color="secondary"
-                indeterminate
-                size="64"
-             ></v-progress-circular>
-        </v-overlay>
-        </div>
         <slot />
     </v-container>
 

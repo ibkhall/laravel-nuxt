@@ -17,5 +17,10 @@ class Controller extends BaseController
     {
         return Auth::guard('sanctum')->user();
     }
+
+    public function limit() : int
+    {
+        return 10;
+    }
     
 }

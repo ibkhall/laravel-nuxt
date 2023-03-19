@@ -32,7 +32,7 @@ const slides = [
 
 <template>
   
-<h5 class="text-h5">Tableau de bord</h5>
+<AppToolbar title="Tableau de bord" :breadcrumbs="[]" icon="mdi-view-dashboard" prepend-icon=""/>
 
 
 </template>

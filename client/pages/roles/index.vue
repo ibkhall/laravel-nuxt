@@ -9,25 +9,25 @@ useHead({
 	title: 'Liste rôles'
 })
 
-const {$sweetalert, $emitter} = useNuxtApp()
+const {$emitter} = useNuxtApp()
 
 
 const onDelete = (item: {id: string}) => {
-  $sweetalert.deleteConfirmation(() => {
+  useDeleteConfirmation().then(() => {
     Role.$query().destroy(item.id)
-    $emitter.emit('onDelete')
+    $emitter.emit(CONSTANT.REFRESH_DATATABLE as never)
 
   })
 }
 
-const header = [
-  {title: '#', value: 'id', class: ''},
-  {title: 'Nom', value: 'name', class: '', sortable: true},
-  {title: 'Description', value: 'description', class: '', sortable: true},
-  {title: 'Permissions', value: 'permissions', class: 'text-center', sortable: false, width: '350'},
-  {title: 'Date création', value: 'created_at', class: 'text-center', sortable: true},
-  {title: 'Date Modification', value: 'updated_at', class: 'text-center', sortable: true},
-  {title: 'Actions', value: 'actions', class: 'text-center', width: '150'},
+const headers = [
+  {title: '#', key: 'id', class: ''},
+  {title: 'Nom', key: 'name', class: '', sortable: true},
+  {title: 'Description', key: 'description', class: '', sortable: true},
+  {title: 'Permissions', key: 'permissions', class: 'text-center', sortable: false, width: '350'},
+  {title: 'Date création', key: 'created_at', class: 'text-center', sortable: true},
+  {title: 'Date Modification', key: 'updated_at', class: 'text-center', sortable: true},
+  {title: 'Actions', key: 'actions', class: 'text-center', width: '150'},
 ]
 const items = [
         {
@@ -51,21 +51,21 @@ const items = [
       </v-btn>
     </v-col>
   </v-row>
-  <TableComponent :headers="header" :model="Role" :relations="['permissions']">
-    <template v-slot:actions="{item}">
+  <AppTable :headers="headers" :model="Role" :relations="['permissions']">
+    <template v-slot:item.actions="{item}">
      
-      <v-btn :to="{name: 'roles-id', params: {id: item.id as number}}" icon="mdi-pencil" size="small" variant="text" color="warning">
+      <v-btn :to="{name: 'roles-id', params: {id: item.raw.id as number}}" icon="mdi-pencil" size="small" variant="text" color="warning">
       
       </v-btn>
 
-      <v-btn @click="onDelete(item)" icon="mdi-delete" size="small" variant="text" color="error">
+      <v-btn @click="onDelete(item.raw)" icon="mdi-delete" size="small" variant="text" color="error">
       </v-btn>
     </template>
-    <template v-slot:permissions="{item}">
+    <template v-slot:item.permissions="{item}">
       <div class="text-center">
         <v-chip
           size="small"
-          v-for="permission in item.permissions"
+          v-for="permission in item.raw.permissions"
           color="success"
           class="ma-2"
         >
@@ -73,7 +73,7 @@ const items = [
         </v-chip>
   </div>
    </template>
-  </TableComponent>
+  </AppTable>
 
 </div>
 

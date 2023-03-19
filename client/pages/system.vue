@@ -63,20 +63,14 @@ const onChange = (e: any) => {
                 <v-file-input label="Choisir le logo" :error-messages="errors.file" @change="onChange" v-model="values.file" variant="outlined"></v-file-input>
             </v-col>
             <v-col md="4">
-                <label class="label" for="name">Nom de la socièté</label>
-                <TextField id="name" name="name"></TextField>
-                <label class="label" for="address">Adresse</label>
-                <TextField id="address" name="address"></TextField>
-                <label class="label" for="telephone1">Téléphone 1</label>
-                <TextField id="telephone1" name="telephone1"></TextField>
+                <TextField label="Nom de la socièté" id="name" name="name"></TextField>
+                <TextField label="Adresse" id="address" name="address"></TextField>
+                <TextField label="Téléphone 1" id="telephone1" name="telephone1"></TextField>
             </v-col>
             <v-col md="4">
-                <label class="label" for="telephone2">Téléphone 2</label>
-                <TextField placeholder="optionel" id="telephone2" name="telephone2"></TextField>
-                <label class="label" for="telephone3">Téléphone 3</label>
-                <TextField placeholder="optionel" id="telephone3" name="telephone3"></TextField>
-                <label class="label" for="telephone4">Téléphone 4</label>
-                <TextField placeholder="optionel" id="telephone4" name="telephone4"></TextField>
+                <TextField label="Téléphone 2" placeholder="optionel" id="telephone2" name="telephone2"></TextField>
+                <TextField label="Téléphone 3" placeholder="optionel" id="telephone3" name="telephone3"></TextField>
+                <TextField label="Téléphone 4" placeholder="optionel" id="telephone4" name="telephone4"></TextField>
             </v-col>
         </v-row>
     </v-card-text>

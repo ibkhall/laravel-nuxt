@@ -18,7 +18,7 @@ class ActivityController extends Controller
 
     public function sortableBy() : array
     {
-         return ['created_at', 'description'];
+         return ['id', 'description', 'created_at', 'description'];
     }
 
     public function alwaysIncludes() : array

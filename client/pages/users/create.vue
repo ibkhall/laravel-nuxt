@@ -62,25 +62,20 @@ const initialValues = {roles: [], permissions: []}
     <v-card color="surface">
     <v-card-text>
     <v-row>
-        <v-col  md="6">
-            <label class="label" for="name">Nom d'utilisateur</label>
-            <text-field  name="name" id="name"></text-field>
-        </v-col>
-        <v-col md="6">
-            <label class="label" for="email">Email</label>
-            <text-field type="email" name="email" id="email"></text-field>
+        <v-col offset="3" md="6">
+            <text-field label="Nom d'utilisateur" name="name" id="name"></text-field>
+            <text-field label="Email" type="email" name="email" id="email"></text-field>
+            <AutocompleteField label="Rôles"  v-model="values.roles" chips multiple item-title="description" item-value="id" :items="roles[0].$response?.data.data" id="roles"></AutocompleteField>
+            <AutocompleteField label="Permissions"  v-model="values.permissions" chips multiple item-title="description" item-value="id" :items="permissions[0].$response?.data.data" id="permissions"></AutocompleteField>
+        
         </v-col>
     </v-row>
     <v-row>
         <v-col md="6">
-            <label class="label" for="roles">Rôles</label>
-            <AutocompleteField  v-model="values.roles" chips multiple item-title="description" item-value="id" :items="roles[0].$response?.data.data" id="roles"></AutocompleteField>
         
            
         </v-col>
         <v-col md="6">
-            <label class="label" for="permissions">Permissions</label>
-            <AutocompleteField  v-model="values.permissions" chips multiple item-title="description" item-value="id" :items="permissions[0].$response?.data.data" id="permissions"></AutocompleteField>
         
         </v-col>
     </v-row>

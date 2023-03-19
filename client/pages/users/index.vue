@@ -4,24 +4,66 @@ import { User } from '@/models/User';
 definePageMeta({
   layout: "authenticated"
 });
-const {$sweetalert, $emitter} = useNuxtApp()
+const {$emitter} = useNuxtApp()
+const user = useUser().value
 useHead({
 	title: 'Liste utilisateurs'
 })
 const onDelete = (item: {id: string}) => {
-  $sweetalert.deleteConfirmation(() => {
+  useDeleteConfirmation().then(() => {
     User.$query().destroy(item.id)
-    $emitter.emit('onDelete' as never)
+    $emitter.emit(CONSTANT.REFRESH_DATATABLE as never)
 
   })
 }
-const header = [
-  {title: '#', value: 'id', class: ''},
-  {title: 'Nom', value: 'name', class: '', sortable: true},
-  {title: 'Email', value: 'email', class: '', sortable: true},
-  {title: 'Date création', value: 'created_at', class: 'text-center', sortable: true},
-  {title: 'Date Modification', value: 'updated_at', class: 'text-center', sortable: true},
-  {title: 'Actions', value: 'actions', class: 'text-center', width: '200'},
+
+const deleteAction = (ids: {}) => {
+  useDeleteConfirmation().then(() => {
+    useApi('/users/batch', {
+      body: {
+        "resources": Object.values(ids)
+      },
+      method: 'DELETE'
+    }).then(d => {
+        $emitter.emit(CONSTANT.REFRESH_DATATABLE as never)
+    })
+  })
+}
+
+
+
+const activateAction = (ids: {}, activate = true) => {
+  let message = activate ? 'De voulloir activer' : 'De voulloir désactiver'
+
+  useConfirmation(message).then(() => {
+    
+    const obj = {} as any
+    Object.values(ids).map((el: any) => {
+      obj[el] = {
+        'is_active': activate
+      }
+    })
+    useApi('/users/batch', {
+      body: {
+        "resources": obj
+      },
+      method: 'PATCH'
+    }).then(d => {
+        $emitter.emit(CONSTANT.REFRESH_DATATABLE as never)
+    })
+    
+  })
+  
+}
+
+const headers = [
+  {title: '#', key: 'id', class: ''},
+  {title: 'Nom', key: 'name', class: '', sortable: true},
+  {title: 'Email', key: 'email', class: '', sortable: true},
+  {title: 'Date création', key: 'created_at', class: 'text-center', sortable: true},
+  {title: 'Date modification', key: 'updated_at', class: 'text-center', sortable: true},
+  {title: 'Statut', key: 'is_active', class: 'text-center', sortable: false},
+  {title: 'Actions', key: 'actions', class: 'text-center', width: '200', sortable: false},
 ]
 const items = [
         {
@@ -45,14 +87,34 @@ const items = [
       </v-btn>
     </v-col>
   </v-row>
-  <TableComponent :headers="header" :model="User">
-    <template v-slot:actions="{item}">
+  <AppTable :headers="headers" :model="User" show-select>
+    <template v-slot:actions="selected">
+      <v-btn @click="deleteAction(selected)" color="error" size="small" variant="tonal">
+          <v-icon start>mdi-delete-outline</v-icon>
+          Supprimer
+      </v-btn>
+      <v-btn color="warning" @click="activateAction(selected, false)" size="small" class="ml-1" variant="tonal">
+          <v-icon start>mdi-account-off-outline</v-icon>
+          Désactiver
+      </v-btn>
+      <v-btn color="success" @click="activateAction(selected, true)" size="small" class="ml-1" variant="tonal">
+          <v-icon start>mdi-account-reactivate</v-icon>
+          Activer
+      </v-btn>
      
-      <v-btn :to="{name: 'users-show-id', params: {id: item.id as number}}" icon="mdi-account-details" size="small" variant="text" color="info"/>
-      <v-btn :to="{name: 'users-id', params: {id: item.id as number}}" icon="mdi-pencil" size="small" variant="text" color="warning"/>
-      <v-btn :disabled="item.id==useNuxtApp().$user.id" icon="mdi-delete" @click="onDelete(item)" size="small" variant="text" color="error"/>
     </template>
-  </TableComponent>
+    <template v-slot:item.actions="{item}">
+     
+      <v-btn :to="{name: 'users-show-id', params: {id: item.raw.id as number}}" icon="mdi-account-details" size="small" variant="text" color="info"/>
+      <v-btn :to="{name: 'users-id', params: {id: item.raw.id as number}}" icon="mdi-pencil" size="small" variant="text" color="warning"/>
+      <v-btn :disabled="item.id==user.id" icon="mdi-delete" @click="onDelete(item)" size="small" variant="text" color="error"/>
+    </template>
+
+    <template v-slot:item.is_active="{item}">
+     <v-chip label size="small" color="success" v-if="item.raw.is_active">activé</v-chip>
+     <v-chip label size="small" color="warning" v-else>désactivé</v-chip>
+   </template>
+  </AppTable>
 
 </div>
 

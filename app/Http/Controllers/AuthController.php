@@ -24,6 +24,15 @@ class AuthController extends BaseController
               'message' => 'Credentials error'
             ], 401);
         }
+        if(!$request->user()->is_active) {
+            return response()->json([
+                'errors' => [
+                  'name' => trans('auth.deactivated'),
+                ],
+                'message' => 'Access error'
+              ], 401);
+              
+        }
         $request->session()->regenerate();
     }
 

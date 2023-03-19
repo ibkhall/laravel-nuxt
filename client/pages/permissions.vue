@@ -16,16 +16,16 @@ const items = [
        
       ]
 const headers = [
-  {title: '#', value: 'id', class: ''},
-  {title: 'Nom', value: 'name', class: '', sortable: true},
-  {title: 'Description', value: 'description', class: '', sortable: true},
+  {title: '#', key: 'id', class: ''},
+  {title: 'Nom', key: 'name', class: '', sortable: true},
+  {title: 'Description', key: 'description', class: '', sortable: true},
 ]
 </script>
 
 <template>
   
   <AppToolbar title="Liste permissions" icon="mdi-security" prepend-icon="mdi-security" :breadcrumbs="items"></AppToolbar>
-<TableComponent :headers="headers" :model="Permission"/>
+<AppTable :headers="headers" :model="Permission"/>
 
 
 </template>

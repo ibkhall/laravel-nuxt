@@ -57,17 +57,15 @@ const items = [
     <v-card color="surface">
     <v-card-text>
         <div class="w-50 mx-md-auto">
-            <label class="label" for="name">Nom du rôle</label>
-            <text-field id="name" name="name"/>
+            <label class="label" for="name"></label>
+            <text-field label="Nom du rôle" id="name" name="name"/>
             
         </div>
         <div class="w-50 mx-md-auto">
-            <label class="label" for="description">Description du rôle</label>
-            <text-field id="description" name="description"/>
+            <text-field label="Description du rôle" id="description" name="description"/>
         </div>
         <div class="w-50 mx-auto">
-            <label class="label" for="permissions">Permissions</label>
-            <AutocompleteField  v-model="values.permissions" chips multiple item-title="description" item-value="id" :items="permissions[0].$response?.data.data" id="permissions"></AutocompleteField>
+            <AutocompleteField label="Permissions"  v-model="values.permissions" chips multiple item-title="description" item-value="id" :items="permissions[0].$response?.data.data" id="permissions"></AutocompleteField>
         
         </div>
         

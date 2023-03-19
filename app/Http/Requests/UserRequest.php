@@ -17,8 +17,8 @@ class UserRequest extends Request
     public function updateRules() : array
     {
         return [
-            'name' => 'required|string|min:3|unique:users,name,'.$this->route()->parameter('user'),
-            'email' => 'required|email|unique:users,email,'.$this->route()->parameter('user'),
+            'name' => 'string|min:3|unique:users,name,'.$this->route()->parameter('user'),
+            'email' => 'email|unique:users,email,'.$this->route()->parameter('user'),
         ];
     }
 }

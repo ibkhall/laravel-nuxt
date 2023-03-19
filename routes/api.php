@@ -23,12 +23,12 @@ use Orion\Facades\Orion;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware(['auth:sanctum', 'active'])->get('/user', function (Request $request) {
     return $request->user()->append('allPermissions', 'allRoles');
 });
 
 
-Route::group(['as' => 'api.', 'middleware' => ['auth:api']], function() {
+Route::group(['as' => 'api.', 'middleware' => ['auth:api', 'active']], function() {
     Route::put('/password/reset', [AuthController::class, 'resetPassword'])->name('resetPassword');
     Orion::resource('system', SystemController::class)->only('show', 'update');
     Orion::resource('users', UserController::class)->withSoftDeletes();
