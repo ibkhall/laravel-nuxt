@@ -82,7 +82,7 @@ const items = [
   <v-row justify="end">
     <v-col md="2" cols="4">
       <v-btn v-permission="'user.create'" exact :to="{name: 'users-create'}" theme="dark" class="ml-md-15 text-white" size="small" color="success">
-        <v-icon start icon="mdi-plus-circle"></v-icon>
+        <Icon name="mdi:plus-circle"></Icon>
         Ajouter
       </v-btn>
     </v-col>
@@ -90,24 +90,36 @@ const items = [
   <AppTable :headers="headers" :model="User" show-select>
     <template v-slot:actions="selected">
       <v-btn @click="deleteAction(selected)" color="error" size="small" variant="tonal">
-          <v-icon start>mdi-delete-outline</v-icon>
+          <Icon name="mdi:delete-outline"></Icon>
           Supprimer
       </v-btn>
       <v-btn color="warning" @click="activateAction(selected, false)" size="small" class="ml-1" variant="tonal">
-          <v-icon start>mdi-account-off-outline</v-icon>
+          <Icon name="mdi:account-off-outline"></Icon>
           Désactiver
       </v-btn>
       <v-btn color="success" @click="activateAction(selected, true)" size="small" class="ml-1" variant="tonal">
-          <v-icon start>mdi-account-reactivate</v-icon>
+          <Icon name="mdi:account-reactivate"></Icon>
           Activer
       </v-btn>
      
     </template>
     <template v-slot:item.actions="{item}">
      
-      <v-btn :to="{name: 'users-show-id', params: {id: item.raw.id as number}}" icon="mdi-account-details" size="small" variant="text" color="info"/>
-      <v-btn :to="{name: 'users-id', params: {id: item.raw.id as number}}" icon="mdi-pencil" size="small" variant="text" color="warning"/>
-      <v-btn :disabled="item.id==user.id" icon="mdi-delete" @click="onDelete(item)" size="small" variant="text" color="error"/>
+      <v-btn :to="{name: 'users-show-id', params: {id: item.raw.id as number}}" size="small" variant="text" color="info">
+        <template #append>
+          <Icon name="mdi:account-details"/>
+        </template>
+        </v-btn>
+      <v-btn :to="{name: 'users-id', params: {id: item.raw.id as number}}" size="small" variant="text" color="warning">
+        <template #append>
+          <Icon name="mdi:pencil"/>
+        </template>
+        </v-btn>
+      <v-btn :disabled="item.id==user.id" @click="onDelete(item)" size="small" variant="text" color="error">
+        <template #append>
+          <Icon name="mdi:delete"/>
+        </template>
+        </v-btn>
     </template>
 
     <template v-slot:item.is_active="{item}">

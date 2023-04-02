@@ -13,7 +13,6 @@ useHead({
 })
 
 const schema = useUserRules()
-const {$sweetalert} = useNuxtApp()
 
 const form = ref({name: '', email: '', permissions: [], roles: [], errors: {} as {[key: string]: string}})
 const  permissions = await Permission.$query().get(500)
@@ -43,7 +42,7 @@ const save = async (values: any, {setErrors}: SubmissionContext) => {
         await user.permissions().sync(values.permissions)
 
         navigateTo('/users')
-        $sweetalert.created()
+       
     }catch(e: any) {
       setErrors(e.response.data.errors)
     }
@@ -85,11 +84,11 @@ const initialValues = {roles: [], permissions: []}
 <v-card-actions>
     <v-spacer/>
     <v-btn type="submit" theme="dark" variant="elevated" color="success">
-        <v-icon start icon="mdi-store"></v-icon>
+        <Icon name="mdi:store"></Icon>
         Enregistrer
     </v-btn>
     <v-btn :to="{name: 'users'}" variant="elevated" color="grey">
-        <v-icon start icon="mdi-cancel"></v-icon>
+        <Icon name="mdi:cancel"></Icon>
         Annuler
     </v-btn>
 </v-card-actions>

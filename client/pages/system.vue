@@ -10,7 +10,7 @@ useHead({
 })
 
 const schema = useSystemRules()
-const $system = useNuxtApp().$system
+const $system = useSystem().value
 const items = [
         {
           title: 'Configuration',
@@ -33,11 +33,11 @@ const save = async (values: any, context: SubmissionContext) => {
     data.append('_method', 'PUT')
     await useApi('/system/1',{method: 'POST', body: data})
     //await $system.$save(d)
-    useNuxtApp().$sweetalert.updated()
+    
     //setTimeout(() => window.location.reload(), 1000)
     
 }
-const logo = ref('http://localhost:8000/'+$system.$attributes.logo)
+const logo = ref('http://localhost:8000/'+$system.logo)
 
 const onChange = (e: any) => {
     logo.value = URL.createObjectURL(e.target?.files[0])
@@ -50,7 +50,7 @@ const onChange = (e: any) => {
   <AppToolbar title="Configuration" icon="mdi-cog" prepend-icon="mdi-cog" :breadcrumbs="items"></AppToolbar>
 
 
-<Form @submit="save" v-slot="{values, errors}" :validation-schema="schema" :initial-values="$system.$attributes">
+<Form @submit="save" v-slot="{values, errors}" :validation-schema="schema" :initial-values="$system">
     <v-card>
     <v-card-text>
         <v-row>

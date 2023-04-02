@@ -46,7 +46,7 @@ const items = [
   <v-row justify="end">
     <v-col md="2" cols="4">
       <v-btn exact :to="{name: 'roles-create'}" theme="dark" class="ml-md-15 text-white" size="small" color="success">
-        <v-icon start icon="mdi-plus-circle"></v-icon>
+        <Icon  name="mdi:plus-circle"></Icon>
         Ajouter
       </v-btn>
     </v-col>
@@ -54,11 +54,16 @@ const items = [
   <AppTable :headers="headers" :model="Role" :relations="['permissions']">
     <template v-slot:item.actions="{item}">
      
-      <v-btn :to="{name: 'roles-id', params: {id: item.raw.id as number}}" icon="mdi-pencil" size="small" variant="text" color="warning">
-      
+      <v-btn :to="{name: 'roles-id', params: {id: item.raw.id as number}}" size="small" variant="text" color="warning">
+        <template #append>
+          <Icon name="mdi:pencil"/>
+        </template>
       </v-btn>
 
-      <v-btn @click="onDelete(item.raw)" icon="mdi-delete" size="small" variant="text" color="error">
+      <v-btn @click="onDelete(item.raw)" size="small" variant="text" color="error">
+        <template #append>
+          <Icon name="mdi:delete"/>
+        </template>
       </v-btn>
     </template>
     <template v-slot:item.permissions="{item}">

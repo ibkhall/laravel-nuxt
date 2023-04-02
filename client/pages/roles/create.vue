@@ -70,12 +70,12 @@ const items = [
         </div>
         
         <div class="mx-md-auto w-50">
-            <v-btn type="submit"  theme="dark" class="mr-md-2" variant="elevated" color="success">
-                <v-icon start icon="mdi-store"></v-icon>
-                Enregistrer
+            <v-btn type="submit" theme="dark" variant="elevated" color="success">
+            <Icon name="mdi:store"></Icon>
+            Enregistrer
             </v-btn>
             <v-btn :to="{name: 'roles'}" variant="elevated" color="grey">
-                <v-icon start icon="mdi-cancel"></v-icon>
+                <Icon name="mdi:cancel"></Icon>
                 Annuler
             </v-btn>
         </div>

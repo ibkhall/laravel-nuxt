@@ -3,6 +3,7 @@ import { createVuetify } from 'vuetify'
 import {custom} from '../utils/custom-icons'
 import { MAIN_THEME, mainTheme, MAIN_DARK_THEME, mainDarkTheme } from "../helpers/themes";
 import { defaults } from "../helpers/defaults";
+import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
 
 
 export default defineNuxtPlugin(nuxtApp => {
@@ -23,9 +24,10 @@ export default defineNuxtPlugin(nuxtApp => {
 			},
 		},
 		icons: {
-			defaultSet: 'custom',
+			defaultSet: 'mdi',
+			aliases,
 			sets: {
-			  custom,
+			  mdi
 			},
 	},
   })

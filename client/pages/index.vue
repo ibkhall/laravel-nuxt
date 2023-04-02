@@ -11,22 +11,31 @@
 							<div class="mt-1">
 								<label class="label text-grey-darken-2" for="name">Nom d'utilisateur</label>
 								<TextField
-									prepend-inner-icon="mdi-account"
 									id="name"
 									name="name"
-								/>
+								>
+								<template v-slot:prepend-inner>
+									<Icon class="text-primary" name="mdi:account" size="1.5rem"/>
+								</template>
+								</TextField>
 							</div>
 							<div class="mt-1">
 								<label class="label text-grey-darken-2" for="password">Mot de passe</label>
 								<TextField
-									prepend-inner-icon="mdi-form-textbox-password"
 									id="password"
 									name="password"
 									type="password"
-								/>
+								>
+								<template v-slot:prepend-inner>
+									<Icon class="text-primary" name="mdi:lock" size="1.5rem"/>
+								</template>
+								</TextField>
 							</div>
 							<div class="mt-5">
-								<VBtn type="submit" block min-height="44" color="primary">Sign In</VBtn>
+								<VBtn type="submit" block min-height="50" color="primary">
+									<Icon size="1.3rem" class="mr-1" name="mdi:login"/>
+									Connexion
+								</VBtn>
 							</div>
 						</Form>
 					</VCol>

@@ -12,7 +12,6 @@ useHead({
 	title: 'Editer utilisateur'
 })
 
-const {$sweetalert} = useNuxtApp()
 const user = (await User.$query().with(['permissions', 'roles']).find(useRoute().params.id as string)).$response?.data.data
 const  permissions = await Permission.$query().get(500)
 
@@ -41,7 +40,7 @@ const save = async (values: any, {setErrors}: SubmissionContext) => {
         await user.permissions().sync(values.permissions)
 
         navigateTo('/users')
-        $sweetalert.updated()
+       
     }catch(e: any) {
         setErrors(e.response.data.errors)
     }
@@ -74,11 +73,11 @@ const initialValues = {name: user.name, email: user.email, permissions: user.per
 <v-card-actions>
     <v-spacer/>
     <v-btn type="submit" theme="dark" variant="elevated" color="success">
-        <v-icon start icon="mdi-store"></v-icon>
+        <Icon name="mdi:store"></Icon>
         Enregistrer
     </v-btn>
     <v-btn :to="{name: 'users'}" variant="elevated" color="grey">
-        <v-icon start icon="mdi-cancel"></v-icon>
+        <Icon name="mdi:cancel"></Icon>
         Annuler
     </v-btn>
 </v-card-actions>

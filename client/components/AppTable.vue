@@ -110,7 +110,6 @@ const selected = ref([])
         <v-row align="center" class="mx-1">
             <v-col md="3">
                 <v-text-field 
-                prepend-inner-icon="carbon:search" 
                 @update:model-value="onSearch" 
                 v-model="search" 
                 density="compact" 
@@ -119,18 +118,25 @@ const selected = ref([])
                 hide-details 
                 placeholder="Recherche..." 
                 type="search"
-                ></v-text-field>
+                >
+                <template v-slot:prepend-inner>
+                    <Icon size="1.3rem" name="carbon:search"/>
+                </template>
+            </v-text-field>
             </v-col>
             <v-col md="2">
                 <v-select 
                 @update:model-value="onPerPage" 
                 v-model="options.itemsPerPage" 
                 hide-details 
-                prepend-inner-icon="mdi-book-open-page-variant" 
                 class="mb-1 mt-2" 
                 density="compact" 
                 :items="[5,10,15, 20, 30, 40, 50]"
-                ></v-select>
+                >
+                <template v-slot:prepend-inner>
+                    <Icon size="1.3rem" name="mdi:book-open-page-variant"/>
+                </template>
+            </v-select>
             </v-col>
             <v-col md="7" v-if="selected.length">
                 <slot name="actions" v-bind="selected"></slot>
